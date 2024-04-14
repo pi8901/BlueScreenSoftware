@@ -1,0 +1,151 @@
+@charset "UTF-8";
+.active {
+  background-color: #2262FF;
+}
+
+nav {
+  height: 60px;
+  background: var(--blackColor);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.navbar-logo img {
+  width: auto;
+  height: 57px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-text-decoration: "none";
+          text-decoration: "none";
+  color: "inherit";
+}
+
+.navbar-logo.active {
+  background-color: transparent !important;
+}
+
+.nav-items {
+  display: flex;
+  list-style: none;
+  text-align: center;
+  width: 70vw;
+  justify-content: flex-end;
+  margin-right: 2rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  height: 10vh;
+}
+
+.nav-item a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.nav-item.nav-item-4 a {
+  color: rgba(255, 97, 97, 0.979);
+}
+.nav-item.nav-item-4 a:not(.active):hover {
+  background: red;
+  color: var(--blackColor);
+}
+
+.nav-item a:not(.active):hover {
+  background: var(--hoverColor);
+}
+
+/* === Dropdown === */
+nav .dropdown-menu {
+  position: absolute;
+  top: 40px; /* Anpassen der Position */
+  right: 1.5rem;
+  width: 2.25rem;
+  height: 2rem;
+  display: none;
+  flex-direction: column;
+  transition: all 10.3s ease;
+}
+
+nav .dropdown-menu span {
+  display: flex; /* Ändern zu flex */
+  flex-direction: column; /* Vertikale Ausrichtung */
+  width: 100%; /* Volle Breite */
+  height: 0.5rem;
+  background-color: #fff;
+  border-radius: 0.2rem;
+  margin-bottom: 0.3rem; /* Abstand zwischen den Balken */
+  transition: transform 0.3s ease; /* Übergangseffekt für die Transformation */
+}
+
+nav .dropdown-menu span.open:nth-child(1) {
+  transform: translateY(6px) rotate(45deg); /* Obere Linie drehen und verschieben */
+}
+
+nav .dropdown-menu span.open:nth-child(2) {
+  transform: translateY(-6px) rotate(-45deg); /* Untere Linie drehen und verschieben */
+}
+
+nav .dropdown-menu span.open:nth-child(3) {
+  opacity: 0; /* Mittlere Linie ausblenden */
+}
+
+.nav-items {
+  display: flex;
+  transition: all 0.3s ease;
+}
+
+.nav-items.open {
+  display: flex; /* Dropdown-Menü öffnen */
+}
+
+@media (max-width: 840px) {
+  nav .dropdown-menu {
+    display: flex;
+  }
+  nav {
+    height: auto;
+  }
+  nav ul.open {
+    display: flex;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: center; /* Logo und Links zentrieren */
+  }
+  .navbar-logo {
+    width: 100vw; /* Breite auf 80% der Bildschirmbreite setzen */
+    max-width: 300px; /* Maximalbreite festlegen, um zu verhindern, dass das Logo zu groß wird */
+    margin-bottom: 1rem; /* Abstand zwischen Logo und Links hinzufügen */
+    align-self: center;
+  }
+  .navbar-logo img {
+    width: 80%; /* Breite des Bildes auf 100% setzen */
+    height: auto; /* Höhe automatisch anpassen */
+  }
+  .nav-items {
+    display: none;
+    flex-direction: column; /* Links untereinander anzeigen */
+    align-items: center; /* Links zentrieren */
+    width: 100%; /* Breite der Links auf 100% setzen */
+    margin: 0; /* Rand entfernen */
+  }
+  .nav-item a {
+    color: white;
+    padding-left: 11.5rem;
+    padding-right: 11.5rem;
+    margin: 0 0.5rem;
+    border-radius: 5px;
+  }
+}/*# sourceMappingURL=Navbar.css.map */
