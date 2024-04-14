@@ -52,10 +52,12 @@ nav {
   border-radius: 5px;
   font-weight: bold;
   font-size: 1.2rem;
+  transition: color 0.3s ease-in-out;
 }
 
 .nav-item.nav-item-4 a {
   color: rgba(255, 97, 97, 0.979);
+  transition: color 0.3s ease-in;
 }
 .nav-item.nav-item-4 a:not(.active):hover {
   background: red;
@@ -75,7 +77,7 @@ nav .dropdown-menu {
   height: 2rem;
   display: none;
   flex-direction: column;
-  transition: all 10.3s ease;
+  transition: all 0.3s ease;
 }
 
 nav .dropdown-menu span {

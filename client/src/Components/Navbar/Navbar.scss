@@ -55,14 +55,15 @@
     border-radius: 5px;
     font-weight: bold;
     font-size: 1.2rem;
-
+    transition: color 0.3s ease-in-out;
   }
 
   // === Button Ausloggen === 
   .nav-item.nav-item-4 a {
     color: rgba(255, 97, 97, 0.979);
-
-    &:not(.active):hover{
+    transition: color 0.3s ease-in; 
+  
+    &:not(.active):hover {
       background: red;
       color: var(--blackColor);
     }
@@ -84,7 +85,7 @@
     height: 2rem;
     display: none;
     flex-direction: column;
-    transition: all 10.3s ease;
+    transition: all 0.3s ease;
   }
   
   nav .dropdown-menu span {
@@ -97,6 +98,7 @@
     margin-bottom: 0.3rem; /* Abstand zwischen den Balken */
     transition: transform 0.3s ease; /* Übergangseffekt für die Transformation */
   }
+  
   
   
   
@@ -114,7 +116,7 @@
   
   .nav-items {
     display: flex;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
   }
   
   .nav-items.open {
@@ -126,6 +128,7 @@
   
     nav .dropdown-menu {
       display: flex;
+
     }
     nav {
       height: auto;

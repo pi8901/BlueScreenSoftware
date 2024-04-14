@@ -1,13 +1,17 @@
 import React from "react";
-import Navbar from "../Navbar/Navbar"
-import vid from "../../StartAssets/start_vid.mp4"
+import Navbar from "../Navbar/Navbar";
+import Hero from "../Herosection/Hero";
+import Cards from "../Cards/Cards";
+
+
 
 
 const Startseite = () => {
     return (
         <div className="Startseite">
             <Navbar />
-            <video src={vid} muted loop autoPlay></video>
+            <Hero />
+            <Cards />
         </div>
     )
 }

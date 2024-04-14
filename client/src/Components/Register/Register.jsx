@@ -11,7 +11,7 @@ import { MdMarkEmailRead } from "react-icons/md";
 const Register = () => {
     return (
         <div className="registerPage flex">
-        <div className="container flex">
+        <div className="container flex"  style={{ boxShadow: 'rgba(100, 100, 111, 0.8) 0px 7px 29px 0px' }}>
             <div className="videoDiv">
                 <video src={video} autoPlay muted loop></video>
 

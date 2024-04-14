@@ -30,9 +30,9 @@ const Navbar = () =>  {
         <img src={logo} alt="Navigationsleiste Logo_bluescreensoftware" />
       </NavLink>
       <div ref={menuRef} className='dropdown-menu' onClick={toggleMenu}>
-        <span className={menuOpen ? "open" : ""}></span>
-        <span className={menuOpen ? "open" : ""}></span>
-        <span className={menuOpen ? "open" : ""}></span>
+          <span className={menuOpen ? "open" : ""}></span>
+          <span className={menuOpen ? "open" : ""}></span>
+          <span className={menuOpen ? "open" : ""}></span>
       </div>
 
 
