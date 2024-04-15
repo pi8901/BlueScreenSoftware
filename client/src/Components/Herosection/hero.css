@@ -74,7 +74,7 @@
   background-color: transparent;
   color: #fff;
   padding: 8px 20px;
-  border: 1.5px solid var(--primaryColor);
+  border: 1.5px solid var(--logoColor);
   transition: all 0.3s ease-out;
 }
 
@@ -90,7 +90,8 @@
 }
 
 .buttn--medium:hover, .buttn--large:hover {
-  background: var(--primaryColor);
+  background: var(--logoColor);
   color: #1a1a1a;
+  transform: translateY(-1.5px);
   transition: all 0.3s ease-out;
 }/*# sourceMappingURL=hero.css.map */
