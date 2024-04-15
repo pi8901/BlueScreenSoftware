@@ -9,7 +9,7 @@ const Analyse = () => {
         <div className="Analyse">
         <Navbar />
         <Upload/>
-        {/* <Charts /> */}
+        <Charts />
         </div>
     )
 }

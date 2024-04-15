@@ -8,8 +8,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: var(--inputColor);
+    background-color: #7c3aed;
+    transition: all 0.5s ease-out;
 }
 
 .drop-file-input input {
@@ -20,21 +20,48 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
+ 
 }
+
+// === Hover eingenschaft bestimmen ===
 
 .drop-file-input:hover,
 .drop-file-input.dragover {
     opacity: 0.6;
+    background: rgb(17, 0, 255);
+
 }
+.drop-file-input:hover .drop-file-input__label p {
+    color: rgb(255, 251, 0); /* Ändern Sie hier die gewünschte Farbe */
+    display: none;
+}
+
+.drop-file-input::before {
+    content: "";
+    display: none;
+}
+
+.drop-file-input:hover::before {
+    content: "Leave for Upload";
+    display: block;
+    font-size: 17px;
+    font-weight: 500;
+    color: rgb(255, 251, 0); /* Ändern Sie hier die gewünschte Farbe */
+}
+// === Hover beendet ===
 
 .drop-file-input__label {
     text-align: center;
     color: var(--primaryColor);
     font-weight: 600;
     padding: 10px;
+    display: flex; /* Flexbox verwenden */
+    flex-direction: column; /* In Spalte anordnen */
+    align-items: center; /* Zentrieren vertikal */
+    justify-content: center; /* Zentrieren horizontal */
 }
 
-.drop-file-input__label img {
+.drop-file-input__label > img {
     width: 100px;
 }
 

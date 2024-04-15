@@ -10,9 +10,9 @@ const Upload = () => {
 
     return (
         <div className="upload-main-container">
-            <div className="upload-container">
-                <h2 className="upload-header">
-                    React drop files input
+            <div className="upload-container bg-slate-900/50">
+                <h2 className="upload-header text-white">
+                    Lorem ipsum dolor sit amet
                 </h2>
                 <DropComponents
                     onFileChange={(files) => onFileChange(files)}
@@ -26,8 +26,3 @@ export default Upload
 
 {/* <div className='absolute z-[3] -left-1/2 top-0 w-[50] h-[50] rounded-full white__gradient'/>
 <div className='absolute z-[0] -left-1/2 bottom-0 w-[50] h-[50] rounded-full pink__gradient'/> */}    
-
-        // <div className="upload-main-container">
-
-        // <div className="upload-container">
-        // <h1 className="upload-header">
