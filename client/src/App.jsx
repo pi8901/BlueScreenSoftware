@@ -24,3 +24,17 @@ function App() {
 }
 
 export default App;
+
+/* 
+=== Befehle für Hosten, stoppen, dev starten === 
+1. firebase deploy --only hosting
+2. npm run dev  
+3. Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass (für windows)
+4. firebase hosting:disable
+=== Github ===
+git add .
+git commit -m "was ist neu?"
+git push
+---------
+git pull 
+*/
