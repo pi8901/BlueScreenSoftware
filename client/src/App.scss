@@ -77,7 +77,7 @@ img, video{
 }
 
 .showMessage{
-    display: block;
+    display: none;
     color: var(--whiteColor);
     padding: 10px;
     background: rgb(255, 0, 0); 
@@ -86,11 +86,15 @@ img, video{
 }
 
 .showMessage {
-    display: block;
+    display: none;
     color: var(--whiteColor);
     background: rgb(255, 0, 0);
     border-radius: 3px;
     text-align: center;
+}
+
+.showMessage.isActive {
+    display: block;
 }
 
 .btn {

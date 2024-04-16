@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import './Login.css';
 import '../../App.css';
 import video from '../../LoginAssets/Login_vid.mp4';
 import logo from '../../LoginAssets/Logo_blauweiss.png';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FaUserShield } from "react-icons/fa";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
 
-const Login = () => {
+
+const Login = ({ setIsLoggedIn }) => {
+
+   
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginMessage, setLoginMessage] = useState('');
+    const navigate = useNavigate();
+    
+    const handleLogin = (e) => {
+        e.preventDefault(); // Verhindert das Neuladen der Seite beim Submit
+        if (username === 'admin' && password === 'admin') {
+            setLoginMessage('');
+            setIsLoggedIn(true);
+            navigate('/startseite'); // Pfad zur Startseite
+        } else {
+            setLoginMessage('Falscher Nutzername oder Passwort!');
+        }
+    };
+    
+
     return (
         <div className="loginPage flex">
         <div className="container flex"  style={{ boxShadow: 'rgba(100, 100, 111, 0.8) 0px 7px 29px 0px' }}>
@@ -34,13 +54,13 @@ const Login = () => {
                     <h3>Willkommen zurück!</h3>
                 </div>
 
-                <form action="" className="form grid">
-                    <span className="showMessage">Loginstatus</span>
+                <form onSubmit={handleLogin} className="form grid">
+                    <span className={`showMessage ${loginMessage ? 'isActive' : ''}`}>{loginMessage}</span>
                     <div className="inputDiv">
                         <label htmlFor="username">Nutzername</label>
                         <div className="input flex">
                         <FaUserShield className="icon" />
-                        <input type="text" id="username" placeholder="Nutzernamen eingeben" />
+                        <input type="text" id="username" placeholder="Nutzernamen eingeben" value={username} onChange={(e) => setUsername(e.target.value)}/>
                         </div>
                     </div>
 
@@ -48,16 +68,16 @@ const Login = () => {
                         <label htmlFor="password">Passwort</label>
                         <div className="input flex">
                         <BsFillShieldLockFill className="icon" />
-                        <input type="password" id="password" placeholder="Passwort eingeben" />
+                        <input type="password" id="password" placeholder="Passwort eingeben" value={password} onChange={(e) => setPassword(e.target.value)}/>
                         </div>
                     </div>
 
-                    <Link to={"/startseite"}>
+                   
                     <button type="submit" className="btn flex">
                         <span>Login</span>
                         <AiOutlineSwapRight className="icon" />
                     </button>
-                    </Link>
+                    
 
                     <span className="forgetPassword">
                         Passwort vergessen? <a href=""> Klick mich </a>
