@@ -181,7 +181,7 @@ public class WekaBeispielStudierende {
 
     public static void main(String[] args) throws Exception {
 
-        String path = "src//main//resources//static//";
+        String path = "API//src//main//resources//static//";
         String roh = path + "kd100.csv";
         String arffDat = path + "kd100.arff";
 
