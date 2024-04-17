@@ -118,6 +118,7 @@ img, video{
 // === Seitenstyling ===
 
 .loginPage, .registerPage{
+    overflow-y: auto;
     height: 100vh;
     width: 100%;
     margin: auto;
@@ -341,5 +342,32 @@ img, video{
         }
     }
 } 
+
+@media screen and (max-height: 810px) {
+    .registerPage, .loginPage .container {
+        flex-direction: column;
+        overflow: auto;
+        height: auto;
+        padding: 20px;
+    }
+
+    .videoDiv {
+        height: 50vh; // Anpassen, um auf kleineren Bildschirmen weniger Platz einzunehmen
+        order: 2; // Video nach unten verschieben, wenn der Bildschirm zu kurz ist
+    }
+
+    .formDiv {
+        position: relative;
+        order: 1; // Stellen Sie sicher, dass das Formular zuerst kommt
+        width: 100%;
+        max-width: 500px; // Begrenzen der Breite des Formulars
+        margin: 0 auto; // Zentrieren des Formulars
+    }
+
+    .videoDiv, .formDiv {
+        flex-basis: auto; // Automatische Anpassung der Größe nach Bedarf
+    }
+}
+
 
 
