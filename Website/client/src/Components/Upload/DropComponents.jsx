@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 import './DropComponents.css';
 
-import { ImageConfig } from "./ImageConfig.jsx"
-import uploadImg from "../../img/cloud-upload-regular-240.png"
+import { ImageConfig } from "./ImageConfig.jsx";
+import uploadImg from "../../img/cloud-upload-regular-240.png";
+
+import axios from 'axios';
 
 const DropFileInput = props => {
 
@@ -24,6 +26,20 @@ const DropFileInput = props => {
             const updatedList = [...fileList, newFile];
             setFileList(updatedList);
             props.onFileChange(updatedList);
+    
+            const formData = new FormData();
+            formData.append("file", newFile);
+            axios.post('http://localhost:8080', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                console.log('Upload erfolgreich:', response);
+            }).catch(error => {
+                console.error('Upload fehlgeschlagen:', error);
+                // Exception handling 
+            });
+    
         }
     }
 
@@ -79,3 +95,26 @@ DropFileInput.propTypes = {
 }
 
 export default DropFileInput;
+
+const onFileDrop = (e) => {
+    const newFile = e.target.files[0];
+    if (newFile) {
+        const updatedList = [...fileList, newFile];
+        setFileList(updatedList);
+        props.onFileChange(updatedList);
+
+        const formData = new FormData();
+        formData.append("file", newFile);
+        axios.post('http://your-api-url/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            console.log('Upload erfolgreich:', response);
+        }).catch(error => {
+            console.error('Upload fehlgeschlagen:', error);
+            // Exception handling 
+        });
+
+    }
+}
