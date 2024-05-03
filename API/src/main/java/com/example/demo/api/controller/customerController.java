@@ -23,4 +23,10 @@ public class customerController
     {
         return customerService.getCustomer(id);
     }
+
+    @GetMapping("/customers")
+    public customer[] getAllCustomers()
+    {
+        return customerService.getCustomers();
+    }
 }

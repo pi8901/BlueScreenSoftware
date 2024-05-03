@@ -43,5 +43,10 @@ public class customerService
             }
             return null;
         }
+
+        public customer[] getCustomers()
+        {
+            return customers.toArray(new customer[0]);
+        }
     
 }

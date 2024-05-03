@@ -12,44 +12,15 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NumericCleaner;
 import weka.filters.unsupervised.attribute.NumericToNominal;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 
+import com.example.demo.api.model.absolute;
 
-
-/**
- * Beispielprogramm, um WeKa in eclipse zu verwenden. <br>
- * <br>
- * <b>Bislang keinerlei Fehlerbehandlung, selbst drum kuemmern! </b><br>
- * Weitere Einstellungen (falls noetig) selbst recherchieren.<br>
- * Rueckgabestrings der Methoden ggf. nach den eigenen Beduerfnissen anpassen.<br>
- *
- * <br>
- * Die Rohdaten liegen im CSV-Format vor und enthalten die folgenden 26
- * Attribute: <br>
- * 0..8 Kundendaten und Einkaufsverhalten <br>
- * 9 Einkaufssumme <br>
- * 10..24 gekaufte Waren (Warengruppen)
- *
- * <br>
- * <br>
- * fertige Analysen: <br>
- * - Top - Daten (haeufigsten Wert eines Attributs) <br>
- * // String findMaximum (Instances daten, int index) <br>
- * <br>
- * - Darstellung von Waren (-gruppen), die zusammen gekauft werden <br>
- * // String [] makeApriori(Instances daten) <br>
- * <br>
- * - Kundengruppen finden (Clusteranalyse) <br>
- * // String findCluster (Instances daten, int number) <br>
- * <br>
- * - Verteilung der einzelnen Attribute Kundendaten und Einkaufsverhalten, als
- *    <b>absolute</b> Werte <br>
- * // String attDistributionAbsolute(Instances daten, int index) <br>
- * @author Hilke Fasse
- */
-
-public class WekaBeispielStudierende {
+@Service
+public class WekaFramework {
     /**
      * ermittelt die angegebene Anzahl der Cluster
      *
@@ -95,7 +66,7 @@ public class WekaBeispielStudierende {
      *         sich aus der Anzahl der gefundenen Regeln ergibt
      * @throws Exception Fehlerbehandlung muss noch erledigt werden
      */
-    String[] makeApriori(Instances daten) throws Exception {
+    public String[] makeApriori(Instances daten) throws Exception {
 
         // umwandeln in gekauft / nicht gekauft (0/1)
         NumericCleaner nc = new NumericCleaner();
@@ -160,37 +131,36 @@ public class WekaBeispielStudierende {
      * @param index - welches Attribut soll ausgewertet werden?
      * @return Verteilung des Attributs
      */
-    String attDistributionAbsolute(Instances daten, int index) {
+    public absolute attDistributionAbsolute(Instances daten) 
+    {
         int attCount;
-        int attNum = index;
-        String result;
+        int[][] abs = new int[9][9];
 
-        result = daten.attribute(attNum).name() + ": ";
-
-        // Anzahl der moeglichen Werte
-        attCount = daten.attributeStats(attNum).distinctCount;
-
-        for (int i = 0; i < attCount; i++) {
-            result += "\"" + daten.attribute(attNum).value(i) + "\"" + " = "
-                    + daten.attributeStats(attNum).nominalCounts[i] + "  ";
+        for(int j = 0; j <= 8; j++)
+        {
+            // Anzahl der moeglichen Werte
+            attCount = daten.attributeStats(j).distinctCount;
+            for (int i = 0; i < attCount; i++) 
+            {
+                abs[j][i] = daten.attributeStats(j).nominalCounts[i];
+            }
         }
-
-        return result;
+        return new absolute(abs);
     }
 
+    String path;
+    String roh;
+    String arffDat;
+    public Instances alleDaten;
+    public Instances nurWaren;
+    Instances nurKunden;
+    Instances arffDaten;
 
-    public static void main(String[] args) throws Exception {
-
-        String path = "API//src//main//resources//static//";
-        String roh = path + "kd100.csv";
-        String arffDat = path + "kd100.arff";
-
-        Instances alleDaten;
-        Instances nurWaren;
-        Instances nurKunden;
-        Instances arffDaten;
-
-        WekaBeispielStudierende dt = new WekaBeispielStudierende();
+public WekaFramework() throws Exception
+{
+        path = "API//src//main//resources//static//";
+        roh = path + "kd100.csv";
+        arffDat = path + "kd100.arff";
 
         // CSV-Datei laden
         CSVLoader loader = new CSVLoader();
@@ -220,49 +190,5 @@ public class WekaBeispielStudierende {
         ArffLoader aLoader = new ArffLoader();
         aLoader.setSource(new File(arffDat));
         arffDaten = aLoader.getDataSet();
-
-        /*
-         * ******************* Start der Auswertungen ***********************
-         */
-
-        // Top-Werte ermitteln
-        System.out.println(">>>>>--- Top-Wert ermitteln ----\n");
-        System.out.println("Haeufigste Altersgruppe: " + dt.findMaximum(arffDaten, 1) + " Jahre\n");
-
-
-        // Clusteranalyse mit 5 Clustern ueber alle Daten
-        System.out.println(">>>>>--- Clusteranalyse ueber alle Daten, 5 Cluster ---\n");
-        System.out.println(dt.findCluster(alleDaten, 5));
-
-        // Waren rausnehmen, nur Kundendaten stehen lassen
-        nurKunden = new Instances(alleDaten);
-        for (int i = 0; i < 16; i++) {
-            nurKunden.deleteAttributeAt(9); // einzelnes Attribut rausnehmen
-        }
-
-        // Clusteranalyse mit 3 Clustern ueber die Kundendaten
-        System.out.println(">>>>>--- Clusteranalyse ueber die Kundendaten, 3 Cluster ---\n");
-        System.out.println(dt.findCluster(nurKunden, 3));
-
-        // Kundendaten rausnehmen, nur Warenkoerbe stehen lassen
-        nurWaren = new Instances(alleDaten);
-        for (int i = 0; i < 10; i++) {
-            nurWaren.deleteAttributeAt(0); // ein einzelnes Attribut rausnehmen
-        }
-
-        // Assoziationsanalyse der gekauften Waren
-        System.out.println(">>>>>--- Apriori-Analyse (Waren die zusammen gekauft wurden) ---\n");
-        String[] aprioriResult = dt.makeApriori(nurWaren);
-        for (int i = 0; i < aprioriResult.length; i++) {
-            System.out.println(aprioriResult[i]);
-        }
-
-        // Verteilung der einzelnen Attribute Kundendaten und Einkaufsverhalten
-        System.out.println("\n>>>>>--- Verteilung der einzelnen Attribute (absolute Zahlen) ---\n");
-
-        for (int i = 0; i <= 8; i++) {
-            System.out.println(dt.attDistributionAbsolute(nurKunden, i));
-        }
-
-    }
+}
 }
