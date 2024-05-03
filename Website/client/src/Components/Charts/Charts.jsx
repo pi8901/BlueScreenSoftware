@@ -10,7 +10,7 @@ const Charts = () => {
   const [apiResponse, setApiResponse] = useState('Loading...');
 
     useEffect(() => {
-        axios.get('http://localhost:8080')
+        axios.get('http://localhost:8080/customers')
             .then(response => {
                 setApiResponse(response.data.message);
             })

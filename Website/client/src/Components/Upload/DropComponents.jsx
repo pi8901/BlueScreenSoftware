@@ -29,7 +29,7 @@ const DropFileInput = props => {
     
             const formData = new FormData();
             formData.append("file", newFile);
-            axios.post('http://localhost:8080', formData, {
+            axios.post('http://localhost:8080/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

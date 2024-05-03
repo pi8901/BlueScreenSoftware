@@ -1,12 +1,6 @@
 {
   "dependencies": {
-    "react": "^18.2.0",
-    "recharts": "^2.12.5"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "recharts": "^2.12.5",
+    "vite": "^5.2.11"
   }
 }
