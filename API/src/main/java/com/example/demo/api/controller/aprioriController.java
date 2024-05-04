@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.service.WekaFramework;
 
-@RestController
+//@RestController
 public class aprioriController 
 {
 
@@ -25,9 +25,9 @@ public class aprioriController
      }
 
      @GetMapping("/apriori")
-     public String[] getApriori()
+     public String getApriori()
      {
-         return data;
+         return "Hello";
      }
 
 }
