@@ -11,7 +11,7 @@ import upload from '../../img/cloud-upload-icon.png';
 
 const Cards = () => {
   return (
-    <div className='cards'>
+    <div className='cards bg-[#252525]'>
       <h1 className='card-slogan'>Sieh dir diese tollen Karten an!?</h1>
       <div className='cards__container'>
         <div className='cards__wrapper'>
@@ -20,7 +20,7 @@ const Cards = () => {
               src={bild}
               text='Testen Sie wie unsere Software in der Konkurrenz performt'
               label='Aktuelles'
-              path='/startseite'
+              path='/analyse'
             />
             <CardItem
               src={bild2}
@@ -34,7 +34,7 @@ const Cards = () => {
               src={upload}
               text='Gemütlich Ihre per Drag & Drop .csv Datei zur Analyse hochladen'
               label='Easy Upload'
-              path='/startseite'
+              path='/analyse'
             />
             <CardItem
               src={bild3}
@@ -46,7 +46,7 @@ const Cards = () => {
               src={bild4}
               text='Alles an einem Ort. Kein lästiger Papierkram mehr - Jetzt die Analyse starten!'
               label='Analyse starten'
-              path='/startseite'
+              path='/analyse'
             />
           </ul>
         </div>

@@ -21,12 +21,14 @@
   padding: 1rem 0;
   font-size: 3.5rem;
   text-align: center;
+  color: var(--whiteColor);
 }
 
 .swiper_container {
   height: 52rem;
   padding: 2rem 0;
   position: relative;
+  margin-bottom: 2rem;
 }
 
 .swiper-slide {
@@ -108,7 +110,7 @@
   }
 }
 .slider-controler .slider-arrow {
-  background: var(--primaryColor);
+  background: var(--logoColor);
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
@@ -119,7 +121,7 @@
 
 .slider-controler .slider-arrow ion-icon {
   font-size: 2rem;
-  color: #222224;
+  color: #000000;
 }
 
 .slider-controler .slider-arrow::after {
@@ -137,10 +139,11 @@
 }
 
 .swiper-pagination .swiper-pagination-bullet {
-  margin: 0 0.5rem;
+  margin: 0 0.5rem 1rem;
   filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+  color: #000000;
 }
 
 .swiper-pagination .swiper-pagination-bullet-active {
-  background: var(--primaryColor);
+  background: var(--logoColor);
 }/*# sourceMappingURL=StrategienComponent.css.map */

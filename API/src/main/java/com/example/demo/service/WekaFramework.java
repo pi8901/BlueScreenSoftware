@@ -1,5 +1,12 @@
 package com.example.demo.service;
 
+import java.io.File;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.api.model.absolute;
+
 import weka.associations.Apriori;
 import weka.associations.AssociationRule;
 import weka.classifiers.rules.ZeroR;
@@ -11,13 +18,6 @@ import weka.core.converters.CSVLoader;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NumericCleaner;
 import weka.filters.unsupervised.attribute.NumericToNominal;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
-import com.example.demo.api.model.absolute;
 
 @Service
 public class WekaFramework {

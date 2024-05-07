@@ -19,7 +19,7 @@ const Login = ({ setIsLoggedIn }) => {
     
     const handleLogin = (e) => {
         e.preventDefault(); // Verhindert das Neuladen der Seite beim Submit
-        if (username === 'admin' && password === 'admin') {
+        if (username === 'admin' && password === '') {
             setLoginMessage('');
             setIsLoggedIn(true);
             navigate('/startseite'); // Pfad zur Startseite

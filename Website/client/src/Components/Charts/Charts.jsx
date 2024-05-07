@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const Charts = () => {
 
-  const api_endpoint = "http://localhost:8080/customers";
+  const api_endpoint = "http://localhost:8080/absolute";
   const [apiResponse, setApiResponse] = useState("Loading...");
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Charts = () => {
   };
 
   return (
-    <div className='charts'>
+    <div className='charts bg-[#252525]'>
       <h1 className='partingline'>Lorem Ipsum</h1>
       <hr className='partingline_one' />
 
@@ -57,7 +57,7 @@ const Charts = () => {
       </div>
       
       
-      <button onClick={fetchData} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button onClick={fetchData} className="mt-4 bg-[#5b6bff] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Daten neu laden
       </button>
       <h1 className='text-white'>{JSON.stringify(apiResponse)}</h1>
