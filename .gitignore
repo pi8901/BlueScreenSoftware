@@ -25,3 +25,4 @@ replay_pid*
 API/target/classes/
 *.class
 /API/target/classes
+*.class
