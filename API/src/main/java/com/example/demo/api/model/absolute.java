@@ -14,20 +14,39 @@ public class absolute
 
     public absolute(int[][] data)
     {
-        this.gender = data[0];
-        this.age = data[1];
-        this.children = data[2];
-        this.single = data[3];
-        this.job = data[4];
-        this.day = data[5];
-        this.time = data[6];
-        this.distance = data[7];
-        this.salary = data[8];
+        this.gender = shortenArray(data[0]);
+        this.age = shortenArray(data[1]);
+        this.children = shortenArray(data[2]);
+        this.single = shortenArray(data[3]);
+        this.job = shortenArray(data[4]);
+        this.day = shortenArray(data[5]);
+        this.time = shortenArray(data[6]);
+        this.distance = shortenArray(data[7]);
+        this.salary = shortenArray(data[8]);
     }
 
     public int[] getGender()
     {
         return this.gender;
+    }
+
+    // Helper method to shorten the array by removing zero values
+    private int[] shortenArray(int[] array) {
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != 0) {
+                count++;
+            }
+        }
+        int[] shortenedArray = new int[count];
+        int index = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != 0) {
+                shortenedArray[index] = array[i];
+                index++;
+            }
+        }
+        return shortenedArray;
     }
 
     public int[] getAge()

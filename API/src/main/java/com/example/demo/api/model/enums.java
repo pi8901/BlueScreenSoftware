@@ -14,12 +14,12 @@ public class enums
 
     public enum distance
     {
-        _10km, _10_25km, _25km
+        _10_km_, _10_25_km_, _25_km_
     }
 
     public enum time
     {
-        _10, _10_12, _14_17, _17
+        _10_Uhr_, _10_12_Uhr_, _14_17_Uhr_, _17_Uhr_
     }
 
     public enum salary

@@ -29,7 +29,7 @@ public class WekaFramework {
      * @return Die einzelnen Cluster in einem String, getrennt durch \n
      * @throws Exception Fehlerbehandlung muss noch erledigt werden
      */
-    String findCluster(Instances daten, int number) throws Exception {
+    public String findCluster(Instances daten, int number) throws Exception {
         String[] result;
 
         SimpleKMeans model = new SimpleKMeans();
@@ -39,7 +39,7 @@ public class WekaFramework {
 
         // Final cluster centroids holen
         result = model.getClusterCentroids().toString().split("@data\n");
-        return (result[1] + "\n");
+        return result[1];
     }
 
     // Hilfsmethode, um fuer die Auswertung unnoetige Angaben rauszuloeschen
