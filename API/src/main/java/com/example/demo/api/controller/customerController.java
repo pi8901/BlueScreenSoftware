@@ -18,12 +18,7 @@ public class customerController
 
     public customerController(WekaFramework wekaFramework)
     {
-        try {
-            wekaFramework = new WekaFramework();
-            data = wekaFramework.findCluster(wekaFramework.alleDaten, 5);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         
     }
     
@@ -36,6 +31,13 @@ public class customerController
     @GetMapping("/customers")
     public List<customer> getAllCustomers()
     {
+        try {
+            WekaFramework wekaFramework = new WekaFramework();
+            data = wekaFramework.findCluster(wekaFramework.alleDaten, 5);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         String[] lines = data.split("\n");
         List<customer> customers = new ArrayList<>();
 
