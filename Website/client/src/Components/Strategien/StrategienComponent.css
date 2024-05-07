@@ -108,7 +108,7 @@
   }
 }
 .slider-controler .slider-arrow {
-  background: var(--logoColor);
+  background: var(--primaryColor);
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
@@ -142,5 +142,5 @@
 }
 
 .swiper-pagination .swiper-pagination-bullet-active {
-  background: var(--logoColor);
+  background: var(--primaryColor);
 }/*# sourceMappingURL=StrategienComponent.css.map */

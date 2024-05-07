@@ -5,54 +5,64 @@ import BarChart from './BarChart.jsx';
 import LineChart from "./LineChart.jsx"
 import axios from 'axios';
 
-
 const Charts = () => {
-  const [apiResponse, setApiResponse] = useState('Loading...');
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/customers')
-            .then(response => {
-                setApiResponse(response.data.message);
-            })
-            .catch(error => {
-                console.error('Fehler beim Laden der API-Daten', error);
-                setApiResponse('Fehler beim Laden der Daten oder noch keine hochgeladen');
-            });
-    }, []);
+  const api_endpoint = "http://localhost:8080/customers";
+  const [apiResponse, setApiResponse] = useState("Loading...");
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    axios.get(api_endpoint)
+      .then(response => {
+        setApiResponse(response.data);
+      })
+      .catch(error => {
+        console.error('Fehler beim Laden der API-Daten', error);
+        setApiResponse('Fehler beim Laden der Daten oder noch keine hochgeladen');
+      });
+  };
 
   return (
-      <div className='charts'>
-        <h1 className='partingline'>{apiResponse}</h1>
-        <hr className='partingline_one'/>
+    <div className='charts'>
+      <h1 className='partingline'>Lorem Ipsum</h1>
+      <hr className='partingline_one' />
 
-        <div className='flex min-h-screen flex-col items-center justify-center px-4 md:px-8 xl:px-10 py-33'>
-          <div className='grid xl:grid-cols-2 lg:grid-cols-2 w-full gap-10 max-w-[1440px]'>
-              <GridItem title='Area Chart'>
-                <AreaChart/>
-              </GridItem>
-              <GridItem title='Bar Chart'>
-                <BarChart />
-              </GridItem>
-              <GridItem title='Line Chart'>
-                <LineChart />
-              </GridItem>
-          </div>
-        </div>
-        <hr className='partingline_one'/>
-        <div className='flex min-h-screen flex-col items-center justify-center px-4 md:px-8 xl:px-10 py-33'>
-          <div className='grid xl:grid-cols-2 lg:grid-cols-2 w-full gap-10 max-w-[1440px]'>
-              <GridItem title='Area Chart'>
-              <LineChart />
-              </GridItem>
-              <GridItem title='Bar Chart'>
-                <BarChart />
-              </GridItem>
-          </div>
+      <div className='flex min-h-screen flex-col items-center justify-center px-4 md:px-8 xl:px-10 py-33'>
+        <div className='grid xl:grid-cols-2 lg:grid-cols-2 w-full gap-10 max-w-[1440px]'>
+          <GridItem title='Area Chart'>
+            <AreaChart />
+          </GridItem>
+          <GridItem title='Bar Chart'>
+            <BarChart />
+          </GridItem>
+          <GridItem title='Line Chart'>
+            <LineChart />
+          </GridItem>
         </div>
       </div>
-  );
 
- 
+      <hr className='partingline_one' />
+      <div className='flex min-h-screen flex-col items-center justify-center px-4 md:px-8 xl:px-10 py-33'>
+        <div className='grid xl:grid-cols-2 lg:grid-cols-2 w-full gap-10 max-w-[1440px]'>
+          <GridItem title='Area Chart'>
+            <LineChart />
+          </GridItem>
+          <GridItem title='Bar Chart'>
+            <BarChart />
+          </GridItem>
+        </div>
+      </div>
+      
+      
+      <button onClick={fetchData} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Daten neu laden
+      </button>
+      <h1 className='text-white'>{JSON.stringify(apiResponse)}</h1>
+    </div>
+  );
 }
 
 export default Charts; 

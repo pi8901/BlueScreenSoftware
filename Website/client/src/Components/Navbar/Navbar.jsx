@@ -26,7 +26,7 @@ const Navbar = () =>  {
 
   return (
     <nav className='navbar'>
-      <NavLink to="../startseite" className="navbar-logo" activeClassName="no-active">
+      <NavLink to="../startseite" className="navbar-logo" activeclassname="no-active">
         <img src={logo} alt="Navigationsleiste Logo_bluescreensoftware" />
       </NavLink>
       <div ref={menuRef} className='dropdown-menu' onClick={toggleMenu}>
@@ -40,7 +40,7 @@ const Navbar = () =>  {
         {navItems.map((item) => {
           return (
             <li key={item.id} className={`${item.cName} nav-item-${item.id}`}>
-              <NavLink to={item.path} activeClassName="active">{item.title}</NavLink> 
+              <NavLink to={item.path} activeclassname="active">{item.title}</NavLink> 
             </li>
           );
         })}
