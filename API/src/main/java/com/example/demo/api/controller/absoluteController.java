@@ -13,17 +13,19 @@ public class absoluteController
     absolute abs;
      public absoluteController(WekaFramework wekaFramework)
      {
-        try {
-            wekaFramework = new WekaFramework();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        abs = wekaFramework.attDistributionAbsolute(wekaFramework.alleDaten);
+
      }
 
      @GetMapping("/absolute")
      public absolute getAbsolute()
      {
+        try {
+           WekaFramework wekaFramework = new WekaFramework();
+           abs = wekaFramework.attDistributionAbsolute(wekaFramework.alleDaten);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
          return abs;
      }
 }
