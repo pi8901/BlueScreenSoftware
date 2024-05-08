@@ -105,7 +105,7 @@ export default StrategienComponent;
 function StrategienCards({ children, imgSrc, ...props }) {
     return (
       <div {...props} className='relative'>
-            <div class="">
+            <div className="">
                 <img src={imgSrc} alt="" className='transition-transform h-full w-full object-cover group-hover:rotate-2 group-hover:scale-125' />
             </div>
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
