@@ -63,7 +63,7 @@ public class Beispiel {
 
         SimpleKMeans model = new SimpleKMeans();
         model.setNumClusters(number);
-
+        int a = 7;
         model.buildClusterer(daten);
 
         // Final cluster centroids holen

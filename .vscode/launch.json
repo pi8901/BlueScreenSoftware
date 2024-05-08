@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "topFlopService",
+            "request": "launch",
+            "mainClass": "com.example.demo.service.topFlopService",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
+            "name": "turnoverService",
+            "request": "launch",
+            "mainClass": "com.example.demo.service.turnoverService",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
             "name": "WekaFramework",
             "request": "launch",
             "mainClass": "com.example.demo.service.WekaFramework",

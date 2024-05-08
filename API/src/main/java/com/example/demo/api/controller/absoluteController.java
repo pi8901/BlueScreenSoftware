@@ -25,7 +25,7 @@ public class absoluteController
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+        int i = 0;
          return abs;
      }
 }
