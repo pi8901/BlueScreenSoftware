@@ -4,6 +4,7 @@ import AreaChart from './AreaChart.jsx';
 import BarChart from './BarChart.jsx';
 import LineChart from "./LineChart.jsx"
 import axios from 'axios';
+import { RingLoader } from 'react-spinners';
 
 const Charts = () => {
 
@@ -28,6 +29,7 @@ const Charts = () => {
   return (
     <div className='charts bg-[#252525]'>
       <h1 className='partingline'>Lorem Ipsum</h1>
+      <RingLoader speedMultiplier={1} color="var(--logoColor)" className='mr-auto ml-auto' />
       <hr className='partingline_one' />
 
       <div className='flex min-h-screen flex-col items-center justify-center px-4 md:px-8 xl:px-10 py-33'>

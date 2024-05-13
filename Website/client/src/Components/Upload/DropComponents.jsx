@@ -50,6 +50,28 @@ const DropFileInput = props => {
         props.onFileChange(updatedList);
     }
 
+    const uploadFiles = (e) => {
+        const newFile = e.target.files[0];
+        if (newFile) {
+            const updatedList = [...fileList, newFile];
+            setFileList(updatedList);
+            props.onFileChange(updatedList);
+    
+            const formData = new FormData();
+            formData.append("file", newFile);
+            axios.post('http://localhost:8080/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                console.log('Upload erfolgreich:', response);
+            }).catch(error => {
+                console.error('Upload fehlgeschlagen:', error);
+                // exception handling
+            });
+        }
+    }
+
     return (
         <>
             <div
@@ -68,9 +90,9 @@ const DropFileInput = props => {
             {
                 fileList.length > 0 ? (
                     <div className="drop-file-preview">
-                        <p className="drop-file-preview__title">
+                        <button className="btn rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60' drop-file-preview__title" onClick={uploadFiles}>
                             Ready to upload
-                        </p>
+                        </button>
                         {
                             fileList.map((item, index) => (
                                 <div key={index} className="drop-file-preview__item">
