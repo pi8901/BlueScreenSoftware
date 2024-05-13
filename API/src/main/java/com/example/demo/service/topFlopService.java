@@ -1,66 +1,62 @@
 package com.example.demo.service;
 
-import java.io.File;
-import java.util.Arrays;
-
-import weka.attributeSelection.AttributeSelection;
-import weka.attributeSelection.BestFirst;
-import weka.attributeSelection.CfsSubsetEval;
-import weka.attributeSelection.InfoGainAttributeEval;
-import weka.clusterers.SimpleKMeans;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
-import weka.filters.Filter;
-import weka.filters.unsupervised.attribute.NumericCleaner;
-import weka.filters.unsupervised.attribute.Remove;
+import weka.attributeSelection.CorrelationAttributeEval;
+import weka.attributeSelection.Ranker;
 
-public class topFlopService 
-{
-        public static void main(String[] args) throws Exception{
+import java.io.File;
+
+import com.example.demo.api.model.attributeRank;
+
+import weka.attributeSelection.AttributeSelection;
+
+public class topFlopService {
+
+    public static void main(String[] args) throws Exception {
+        // Load dataset
         String path = "API//src//main//resources//static//";
         String roh = path + "kd100.csv";
 
         Instances alleDaten;
-
-        //5,9
-
-
-        // CSV-Datei laden
+        Instances data;
         CSVLoader loader = new CSVLoader();
         loader.setSource(new File(roh));
         alleDaten = loader.getDataSet();
-
-        // 0 durch ? ersetzen, um fuer die Auswertung nur die Waren zu
-        // beruecksichtigen, die gekauft wurden
-        NumericCleaner nc = new NumericCleaner();
-        nc.setMinThreshold(1.0); // Schwellwert auf 1 setzen
-        nc.setMinDefault(Double.NaN); // alles unter 1 durch ? ersetzen
-        nc.setInputFormat(alleDaten);
-        alleDaten = Filter.useFilter(alleDaten, nc); // Filter anwenden
-        
-
-        System.out.println(findTopFlop(alleDaten, 2));
-
-    }
-
-    static String findTopFlop(Instances daten, int number) throws Exception {
-        String[] result;
-
-        AttributeSelection attsel = new AttributeSelection();
-        CfsSubsetEval eval = new CfsSubsetEval();
-        daten.setClassIndex(daten.numAttributes() - 1);
-        //eval.buildEvaluator(daten);
-        BestFirst search = new BestFirst();
-        attsel.setEvaluator(eval);
-        attsel.setSearch(search);
-        attsel.SelectAttributes(daten);
-        int[] indices = attsel.selectedAttributes();
-        for (int i = 0; i < indices.length; i++) {
-            System.out.println(daten.attribute(indices[i]).name());
+        data = new Instances(alleDaten);
+        for (int i = 0; i < 9; i++) {
+            data.deleteAttributeAt(0); // ein einzelnes Attribut rausnehmen
         }
-        System.out.println(attsel.CVResultsString());
 
 
-        return "test";
+        data.setClassIndex(0);
+
+
+        CorrelationAttributeEval evaluator = new CorrelationAttributeEval();
+
+        // Create search method (BestFirst)
+        Ranker search = new Ranker();
+
+        // Set up attribute selection
+        AttributeSelection selector = new AttributeSelection();
+        selector.setEvaluator(evaluator);
+        selector.setSearch(search);
+        selector.SelectAttributes(data);
+
+        // Get the selected attributes
+        int[] selectedAttributes = selector.selectedAttributes();
+        attributeRank[] attributeRanks = new attributeRank[selectedAttributes.length - 1];
+        double[][] output = selector.rankedAttributes();
+        for (int i = 0; i < output.length; i++) 
+        {
+            //System.out.println("Attribute " + data.attribute((int) output[i][0]).name() + ": " + output[i][0] + " " + output[i][1]);
+            attributeRanks[i] = new attributeRank(data.attribute((int) output[i][0]).name(), i + 1, output[i][1]);
+        }
+
+        for (int i = 0; i < attributeRanks.length; i++) 
+        {
+            System.out.println(attributeRanks[i].getAttribute() + " " + attributeRanks[i].getRank() + " " + attributeRanks[i].getValue());
+        }
     }
 }
+

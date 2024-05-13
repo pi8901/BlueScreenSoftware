@@ -159,7 +159,7 @@ public class WekaFramework {
 public WekaFramework() throws Exception
 {
         path = "API//src//main//resources//static//";
-        roh = path + "outputtt.csv";
+        roh = path + "kd100.csv";
         arffDat = path + "kd100.arff";
 
         // CSV-Datei laden
