@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.demo.api.model.turnover;
+
 
 public class turnoverService 
 {
@@ -67,8 +69,17 @@ public class turnoverService
         removeFilter.setInvertSelection(true); // Alle Attribute außer den ausgewählten behalten
         removeFilter.setInputFormat(alleDaten);
         Instances tag = Filter.useFilter(alleDaten, removeFilter);
-        System.out.println(findCluster(tag, 2));
 
+        String cluster = findCluster(tag, 6);
+        turnover[] t;
+        t = new turnover[6];
+
+        //put all Data from the cluster into the array
+        for (int i = 0; i < 6; i++) {
+            String[] temp = cluster.split("\n")[i].split(",");
+            t[i] = new turnover(temp[0], i, Double.parseDouble(temp[2]));
+        }
+        System.out.println(findCluster(tag, 6));
     }
 
     static String findCluster(Instances daten, int number) throws Exception {
@@ -77,11 +88,8 @@ public class turnoverService
         SimpleKMeans model = new SimpleKMeans();
         model.setNumClusters(number);
         model.buildClusterer(daten);
-
         // Final cluster centroids holen
         result = model.getClusterCentroids().toString().split("@data\n");
         return (result[1] + "\n");
     }
-
-    
 }

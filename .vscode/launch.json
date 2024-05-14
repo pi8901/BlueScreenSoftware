@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "aprioriService",
+            "request": "launch",
+            "mainClass": "com.example.demo.service.aprioriService",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
             "name": "topFlopService",
             "request": "launch",
             "mainClass": "com.example.demo.service.topFlopService",
