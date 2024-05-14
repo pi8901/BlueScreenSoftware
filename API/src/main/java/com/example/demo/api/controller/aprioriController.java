@@ -3,31 +3,26 @@ package com.example.demo.api.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.api.model.apriori;
 import com.example.demo.service.WekaFramework;
+import com.example.demo.service.aprioriService;
+import com.example.demo.service.topFlopService;
 
-//@RestController
+@RestController
 public class aprioriController 
 {
 
-     String[] data;
-     public aprioriController(WekaFramework wekaFramework)
+    private aprioriService aprioriService;
+
+     public aprioriController(aprioriService aprioriService)
      {
-        //data[0]  = "test";
-        try {
-            wekaFramework = new WekaFramework();
-            String[] aprioriResult = wekaFramework.makeApriori(wekaFramework.nurWaren);
-            System.out.println(aprioriResult);
-            data = wekaFramework.makeApriori(wekaFramework.nurWaren);
-            //System.out.println(data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.aprioriService = aprioriService;
      }
 
      @GetMapping("/apriori")
-     public String getApriori()
+     public apriori[] getApriori() throws Exception
      {
-         return "Hello";
+         return aprioriService.getApriori();
      }
 
 }
