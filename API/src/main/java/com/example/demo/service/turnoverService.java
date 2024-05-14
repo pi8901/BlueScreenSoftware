@@ -67,7 +67,7 @@ public class turnoverService
         removeFilter.setInvertSelection(true); // Alle Attribute außer den ausgewählten behalten
         removeFilter.setInputFormat(alleDaten);
         Instances tag = Filter.useFilter(alleDaten, removeFilter);
-        System.out.println(findCluster(tag, 2));
+        System.out.println(findCluster(tag, 6));
 
     }
 
@@ -77,7 +77,6 @@ public class turnoverService
         SimpleKMeans model = new SimpleKMeans();
         model.setNumClusters(number);
         model.buildClusterer(daten);
-
         // Final cluster centroids holen
         result = model.getClusterCentroids().toString().split("@data\n");
         return (result[1] + "\n");
