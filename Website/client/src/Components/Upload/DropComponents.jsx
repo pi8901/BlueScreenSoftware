@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import './DropComponents.css';
@@ -7,12 +7,15 @@ import { ImageConfig } from "./ImageConfig.jsx";
 import uploadImg from "../../img/cloud-upload-regular-240.png";
 
 import axios from 'axios';
+import { DataContext } from '../DataContext/DataContext';
 
 const DropFileInput = props => {
 
     const wrapperRef = useRef(null);
 
     const [fileList, setFileList] = useState([]);
+    const [uploadError, setUploadError] = useState(null);
+    const { fetchData } = useContext(DataContext);
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
 
@@ -21,56 +24,44 @@ const DropFileInput = props => {
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
     const onFileDrop = (e) => {
-        const newFile = e.target.files[0];
-        if (newFile) {
-            const updatedList = [...fileList, newFile];
+        const files = e.target.files;
+        if (files) {
+            const updatedList = [...fileList, ...files];
             setFileList(updatedList);
             props.onFileChange(updatedList);
-    
-            const formData = new FormData();
-            formData.append("file", newFile);
-            axios.post('http://localhost:8080/upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then(response => {
-                console.log('Upload erfolgreich:', response);
-            }).catch(error => {
-                console.error('Upload fehlgeschlagen:', error);
-                // Exception handling 
-            });
-    
+            setUploadError(null);
         }
-    }
+    };
 
     const fileRemove = (file) => {
         const updatedList = [...fileList];
         updatedList.splice(fileList.indexOf(file), 1);
         setFileList(updatedList);
         props.onFileChange(updatedList);
+        setUploadError(null);
     }
 
-    const uploadFiles = (e) => {
-        const newFile = e.target.files[0];
-        if (newFile) {
-            const updatedList = [...fileList, newFile];
-            setFileList(updatedList);
-            props.onFileChange(updatedList);
-    
+    const uploadFiles = () => {
+        setUploadError(null);
+        fileList.forEach(file => {
             const formData = new FormData();
-            formData.append("file", newFile);
+            formData.append("file", file);
             axios.post('http://localhost:8080/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
                 console.log('Upload erfolgreich:', response);
+                fetchData('apriori');
+                fetchData('turnover');
+                fetchData('topflop');
+                fileRemove(file);
             }).catch(error => {
                 console.error('Upload fehlgeschlagen:', error);
-                // exception handling
+                setUploadError("Upload fehlgeschlagen: " + error.message);
             });
-        }
-    }
+        });
+    };
 
     return (
         <>
@@ -90,12 +81,13 @@ const DropFileInput = props => {
             {
                 fileList.length > 0 ? (
                     <div className="drop-file-preview">
-                        <button className="btn rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60' drop-file-preview__title" onClick={uploadFiles}>
-                            Ready to upload
+                        <button className="btn rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm text-white shadow shadow-black/60' drop-file-preview__title" onClick={uploadFiles}>
+                            Analyse starten
                         </button>
+                        {uploadError && <p className="text-white font-bold">{uploadError}</p>}
                         {
                             fileList.map((item, index) => (
-                                <div key={index} className="drop-file-preview__item">
+                                <div key={index} className="drop-file-preview__item my-2">
                                     <img src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']} alt="" />
                                     <div className="drop-file-preview__item__info">
                                         <p>{item.name}</p>
@@ -117,26 +109,3 @@ DropFileInput.propTypes = {
 }
 
 export default DropFileInput;
-
-const onFileDrop = (e) => {
-    const newFile = e.target.files[0];
-    if (newFile) {
-        const updatedList = [...fileList, newFile];
-        setFileList(updatedList);
-        props.onFileChange(updatedList);
-
-        const formData = new FormData();
-        formData.append("file", newFile);
-        axios.post('http://your-api-url/upload', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(response => {
-            console.log('Upload erfolgreich:', response);
-        }).catch(error => {
-            console.error('Upload fehlgeschlagen:', error);
-            // Exception handling 
-        });
-
-    }
-}
