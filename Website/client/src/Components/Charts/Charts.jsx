@@ -3,7 +3,8 @@ import "./Charts.css"
 import AreaChart from './AreaChart.jsx';
 import BarChart from './BarChart.jsx';
 import LineChart from "./LineChart.jsx"
-import axios from 'axios';
+import TopFlopChart from './topflopChart.jsx';
+import AprioriChart from './aprioriChart.jsx';
 import { RingLoader } from 'react-spinners';
 import { useData } from '../DataContext/DataContext';
 
@@ -26,12 +27,17 @@ const Charts = () => {
           <GridItem title='Bar Chart'>
             <BarChart />
           </GridItem>
-          <GridItem title='Line Chart'>
-            <LineChart />
+          <GridItem title='Apriori Chart'>
+            <AprioriChart />
           </GridItem>
+          <GridItem title='Pie Chart'>
+            <TopFlopChart />
+          </GridItem>
+
         </div>
       </div>
-      
+      <h1 className='text-white'>{JSON.stringify(apiResponse)}</h1>
+
     </div>
   );
 }
