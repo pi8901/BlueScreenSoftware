@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import weka.core.Instances;
+import weka.core.SerializationHelper;
 import weka.core.converters.ArffLoader;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
@@ -13,6 +14,9 @@ import weka.filters.unsupervised.attribute.Remove;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.classifiers.rules.ZeroR;
 import weka.classifiers.trees.J48;
+import weka.classifiers.trees.RandomTree;
+import weka.clusterers.ClusterEvaluation;
+import weka.clusterers.Clusterer;
 import weka.clusterers.SimpleKMeans;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
@@ -28,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.demo.api.model.turnover;
+import java.io.FileInputStream;
 
 
 public class turnoverService 
@@ -69,27 +74,75 @@ public class turnoverService
         removeFilter.setInvertSelection(true); // Alle Attribute außer den ausgewählten behalten
         removeFilter.setInputFormat(alleDaten);
         Instances tag = Filter.useFilter(alleDaten, removeFilter);
-
+        /*/
         String cluster = findCluster(tag, 6);
         turnover[] t;
         t = new turnover[6];
 
         //put all Data from the cluster into the array
-        for (int i = 0; i < 6; i++) {
-            String[] temp = cluster.split("\n")[i].split(",");
-            t[i] = new turnover(temp[0], i, Double.parseDouble(temp[2]));
-        }
-        System.out.println(findCluster(tag, 6));
+
+        System.out.println(findCluster(tag, 6));*/
+
+        SimpleKMeans kMeans = (SimpleKMeans) SerializationHelper.read("API\\src\\main\\java\\com\\example\\demo\\service\\model.model");
+        kMeans.buildClusterer(tag);
+        ClusterEvaluation eval = new ClusterEvaluation();
+        eval.setClusterer(kMeans);
+        eval.evaluateClusterer(tag);
+        System.out.println(eval.clusterResultsToString());
+
+
+
+
+
     }
 
-    static String findCluster(Instances daten, int number) throws Exception {
-        String[] result;
+    static String findCluster(Instances data, int number) throws Exception {
+        NumericCleaner numericCleaner = new NumericCleaner();
+        numericCleaner.setInputFormat(data);
+        data = Filter.useFilter(data, numericCleaner);
+
+        Remove removeFilter = new Remove();
+        removeFilter.setAttributeIndices("1"); // Remove Einkaufstag
+        removeFilter.setInputFormat(data);
+        Instances filteredData = data;
+
+        // Perform clustering
+        SimpleKMeans kMeans = new SimpleKMeans();
+        kMeans.setOptions(weka.core.Utils.splitOptions("-init 0 -max-candidates 100 -periodic-pruning 10000 -min-density 2.0 -t1 -1.25 -t2 -1.0 -N 2 -A \"weka.core.EuclideanDistance -R first-last\" -I 500 -num-slots 1 -S 10"));
+        kMeans.buildClusterer(filteredData);
+
+        // Evaluate classes to clusters
+        ClusterEvaluation eval = new ClusterEvaluation();
+        eval.setClusterer(kMeans);
+        //eval.evaluateClusterer(filteredData);
+        //eval.setInstances(data);
+        eval.evaluateClusterer(new Instances(data)); // Make sure to pass filtered data
+
+        // Print evaluation results
+        System.out.println(eval.clusterResultsToString());
+        return "Hello";
+        
+        /*String[] result;
+
+        
+        Remove removeFilter = new Remove();
+        removeFilter.setAttributeIndices("1"); // Remove Einkaufstag
+        removeFilter.setInputFormat(daten);
+        Instances filteredData = Filter.useFilter(daten, removeFilter);
+
 
         SimpleKMeans model = new SimpleKMeans();
+        model.setOptions(weka.core.Utils.splitOptions("-init 0 -max-candidates 100 -periodic-pruning 10000 -min-density 2.0 -t1 -1.25 -t2 -1.0 -N 2 -A \"weka.core.EuclideanDistance -R first-last\" -I 500 -num-slots 1 -S 10"));
+        //daten.setClassIndex(0);
         model.setNumClusters(number);
         model.buildClusterer(daten);
+        
+        ClusterEvaluation eval = new ClusterEvaluation();
+        eval.setClusterer(model);
+        eval.evaluateClusterer(daten);
+        System.out.println(eval.clusterResultsToString());
         // Final cluster centroids holen
         result = model.getClusterCentroids().toString().split("@data\n");
-        return (result[1] + "\n");
+        return (result[1] + "\n");*/
     }
 }
