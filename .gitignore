@@ -26,3 +26,4 @@ API/target/classes/
 *.class
 /API/target/classes
 *.class
+API/src/main/resources/static/outputtt.csv
