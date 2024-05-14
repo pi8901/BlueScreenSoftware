@@ -22,4 +22,16 @@ public class strategy {
     public String getPhoto() {
         return photo;
     }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }

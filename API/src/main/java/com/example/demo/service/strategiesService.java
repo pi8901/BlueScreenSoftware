@@ -8,6 +8,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import com.example.demo.api.model.strategy;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 @Service
 public class strategiesService {
@@ -44,6 +47,20 @@ public class strategiesService {
         strategy[] strategies = strategiesService.getStrategies();
         for (strategy s : strategies) {
             System.out.println(s);
+        }
+    }
+
+    public void writeStrategy(strategy strategy) 
+    {
+        //write the strategy to the csv file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.getStratPath(), true))) {
+            // Write the strategy object to CSV
+            writer.write(strategy.getIndex() + "," + strategy.getTip() + "," + strategy.getPhoto());
+            writer.newLine();
+            System.out.println("Strategy object has been written to CSV successfully!");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
