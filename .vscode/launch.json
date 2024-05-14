@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "strategiesService",
+            "request": "launch",
+            "mainClass": "com.example.demo.service.strategiesService",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
             "name": "aprioriService",
             "request": "launch",
             "mainClass": "com.example.demo.service.aprioriService",
