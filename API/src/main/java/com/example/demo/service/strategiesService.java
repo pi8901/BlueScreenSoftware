@@ -32,8 +32,9 @@ public class strategiesService {
                 String[] parts = line.split(",");
                 int index = Integer.parseInt(parts[0]);
                 String tip = parts[1];
-                String photo = parts[2];
-                strategy s = new strategy(index, tip, photo);
+                String photo = parts[3];
+                String desc = parts[2];
+                strategy s = new strategy(index, tip,desc, photo );
                 strategies.add(s);
             }
         } catch (IOException e) {
@@ -55,7 +56,7 @@ public class strategiesService {
         //write the strategy to the csv file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.getStratPath(), true))) {
             // Write the strategy object to CSV
-            writer.write(strategy.getIndex() + "," + strategy.getTip() + "," + strategy.getPhoto());
+            writer.write(strategy.getId() +  "," + strategy.getTitle() + "," + strategy.getDesc()+ "," + strategy.getCoverImg());
             writer.newLine();
             System.out.println("Strategy object has been written to CSV successfully!");
             writer.close();

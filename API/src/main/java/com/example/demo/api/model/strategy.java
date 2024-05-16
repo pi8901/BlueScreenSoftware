@@ -1,37 +1,45 @@
 package com.example.demo.api.model;
 
 public class strategy {
-    private int index;
-    private String tip;
-    private String photo;
+    private int id;
+    private String title;
+    private String desc;
 
-    public strategy(int index, String tip, String photo) {
-        this.index = index;
-        this.tip = tip;
-        this.photo = photo;
+    public strategy(int index, String tip, String desc, String photo ) {
+        this.id = index;
+        this.title = tip;
+        this.desc = desc;
     }
 
-    public int getIndex() {
-        return index;
+    public int getId() {
+        return id;
     }
 
-    public String getTip() {
-        return tip;
+    public String getTitle() {
+        return title;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getCoverImg() {
+        return "slide_image";
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setTip(String tip) {
-        this.tip = tip;
+    public void setId(int index) {
+        this.id = index;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setTitle(String tip) {
+        this.title = tip;
+    }
+
+    public void setCoverImg(String photo) {
+        this.coverImg = "slide_image";
+    }
+
+    public void setDesc(String descr) {
+        this.desc = descr;
     }
 }

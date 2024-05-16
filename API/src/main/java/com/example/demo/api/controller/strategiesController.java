@@ -33,7 +33,7 @@ public class strategiesController
     @PostMapping("/strategy")
     public ResponseEntity<String> createStrategy(@RequestBody strategy strategy) {
         // Logic to process the Strategy object
-        System.out.println("Received Strategy object: " + strategy.getTip());
+        System.out.println("Received Strategy object: " + strategy.getTitle());
         strategiesService.writeStrategy(strategy);
         return ResponseEntity.ok("Strategy object received");
     }
