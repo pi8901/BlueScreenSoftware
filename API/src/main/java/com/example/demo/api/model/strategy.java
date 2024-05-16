@@ -35,10 +35,6 @@ public class strategy {
         this.title = tip;
     }
 
-    public void setCoverImg(String photo) {
-        this.coverImg = "slide_image";
-    }
-
     public void setDesc(String descr) {
         this.desc = descr;
     }
