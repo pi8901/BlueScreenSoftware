@@ -1,90 +1,90 @@
-import React, { PureComponent } from 'react';
-import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
+import React, { useEffect, useState } from 'react';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useData } from '../DataContext/DataContext';
 
-const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-];
+const AprioriChart = () => {
+    const { data, loading, error, fetchData } = useData();
+    const [transformedData, setTransformedData] = useState([]);
+    const [premises, setPremises] = useState([]);
+    const [consequences, setConsequences] = useState([]);
 
-const renderActiveShape = (props) => {
-  const RADIAN = Math.PI / 180;
-  const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
-  const sin = Math.sin(-RADIAN * midAngle);
-  const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (outerRadius + 10) * cos;
-  const sy = cy + (outerRadius + 10) * sin;
-  const mx = cx + (outerRadius + 30) * cos;
-  const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-  const ey = my;
-  const textAnchor = cos >= 0 ? 'start' : 'end';
+    useEffect(() => {
+        fetchData('apriori');
+    }, []);
 
-  return (
-    <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-        {payload.name}
-      </text>
-      <Sector
-        cx={cx}
-        cy={cy}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        fill={fill}
-      />
-      <Sector
-        cx={cx}
-        cy={cy}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        innerRadius={outerRadius + 6}
-        outerRadius={outerRadius + 10}
-        fill={fill}
-      />
-      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
-      </text>
-    </g>
-  );
-};
+    useEffect(() => {
+        if (data.apriori) {
+            
+            const premisesSet = [...new Set(data.apriori.map(item => item.premise))];
+            const consequencesSet = [...new Set(data.apriori.map(item => item.consequence))];
 
-export default class Example extends PureComponent {
-  static demoUrl = 'https://codesandbox.io/s/pie-chart-with-customized-active-shape-y93si';
+            setPremises(premisesSet);
+            setConsequences(consequencesSet);
 
-  state = {
-    activeIndex: 0,
+            
+            const premiseIndexMap = premisesSet.reduce((acc, premise, index) => ({ ...acc, [premise]: index }), {});
+            const consequenceIndexMap = consequencesSet.reduce((acc, consequence, index) => ({ ...acc, [consequence]: index }), {});
+
+            
+            const formattedData = data.apriori.map(item => ({
+                x: premiseIndexMap[item.premise],
+                y: consequenceIndexMap[item.consequence]
+            }));
+
+            setTransformedData(formattedData);
+        }
+    }, [data]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    }
+
+    const CustomTooltip = ({ active, payload, label, premises, consequences }) => {
+      if (active && payload && payload.length) {
+          const { x, y } = payload[0].payload;
+          return (
+              <div className="custom-tooltip" style={{ backgroundColor: 'var(--logoColor)', padding: '10px', border: '1px solid var(--logoColor)' }}>
+                  <p className="label">{`Premise: ${premises[x]}`}</p>
+                  <p className="label">{`Consequence: ${consequences[y]}`}</p>
+              </div>
+          );
+      }
+      return null;
   };
 
-  onPieEnter = (_, index) => {
-    this.setState({
-      activeIndex: index,
-    });
-  };
-
-  render() {
     return (
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={400} height={400}>
-          <Pie
-            activeIndex={this.state.activeIndex}
-            activeShape={renderActiveShape}
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-            onMouseEnter={this.onPieEnter}
-          />
-        </PieChart>
-      </ResponsiveContainer>
+        <ResponsiveContainer width="100%" height="100%">
+            <ScatterChart margin={{ top: 20, right: 20, bottom: 100, left: 150 }}>
+                <CartesianGrid strokeDasharray="4 4" />
+                <XAxis
+                    type="number"
+                    dataKey="x"
+                    name="Premise"
+                    tickFormatter={(tick) => premises[tick] || ""}
+                    ticks={Object.keys(premises).map(key => parseInt(key))}
+                    interval={0}
+                    angle={-25}
+                    textAnchor="end"
+                />
+                <YAxis
+                    type="number"
+                    dataKey="y"
+                    name="Consequence"
+                    tickFormatter={(tick) => consequences[tick] || ""}
+                    ticks={Object.keys(consequences).map(key => parseInt(key))}
+                    interval={0}
+                />
+                <Tooltip
+                    content={<CustomTooltip premises={premises} consequences={consequences} />}
+                />
+                <Scatter name="Apriori Analysis" data={transformedData} fill="#8884d8" />
+            </ScatterChart>
+        </ResponsiveContainer>
     );
-  }
 }
+
+export default AprioriChart;

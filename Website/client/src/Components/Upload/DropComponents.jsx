@@ -55,6 +55,7 @@ const DropFileInput = props => {
                 fetchData('apriori');
                 fetchData('topflop');
                 //fetchData('turnover');
+                fetchData('strategies');
                 fileRemove(file);
             }).catch(error => {
                 console.error('Upload fehlgeschlagen:', error);

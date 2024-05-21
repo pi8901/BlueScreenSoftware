@@ -27,13 +27,19 @@ const Charts = () => {
           <GridItem title='Bar Chart'>
             <BarChart />
           </GridItem>
-          <GridItem title='Apriori Chart'>
-            <AprioriChart />
-          </GridItem>
           <GridItem title='Pie Chart'>
             <TopFlopChart />
           </GridItem>
+          <GridItem title='Test Chart'>
+            <LineChart />
+          </GridItem>
 
+        </div>
+        <div className='grid xl:grid-cols-1 lg:grid-cols-1 w-full gap-10 max-w-[1440px] mt-8'>
+            <div className="flex flex-col items-center justify-center pl-2 pb-10 pt-8 border border-slate-900 bg-slate-900/50 rounded-xl h-[600px]">
+               <h3 className="text-2xl font-semibold text-white mb-4">Apriori Chart</h3>
+              <AprioriChart />
+            </div> 
         </div>
       </div>
       <h1 className='text-white'>{JSON.stringify(apiResponse)}</h1>
@@ -46,7 +52,7 @@ export default Charts;
 
 function GridItem({ title, children }) {
   return (
-    <div className="flex flex-col items-center justify-center p-4 border border-slate-900 bg-slate-900/50 rounded-xl h-[400px]">
+    <div className="flex flex-col items-center justify-center p-4 border border-slate-900 bg-slate-900/50 rounded-xl h-[450px]">
       <h3 className="text-2xl font-semibold text-white mb-4">{title}</h3>
       {children}
     </div>
