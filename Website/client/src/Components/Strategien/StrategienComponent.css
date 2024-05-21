@@ -21,14 +21,12 @@
   padding: 1rem 0;
   font-size: 3.5rem;
   text-align: center;
-  color: var(--whiteColor);
 }
 
 .swiper_container {
   height: 52rem;
   padding: 2rem 0;
   position: relative;
-  margin-bottom: 2rem;
 }
 
 .swiper-slide {
@@ -110,7 +108,7 @@
   }
 }
 .slider-controler .slider-arrow {
-  background: var(--logoColor);
+  background: var(--primaryColor);
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
@@ -121,7 +119,7 @@
 
 .slider-controler .slider-arrow ion-icon {
   font-size: 2rem;
-  color: #000000;
+  color: #222224;
 }
 
 .slider-controler .slider-arrow::after {
@@ -139,11 +137,52 @@
 }
 
 .swiper-pagination .swiper-pagination-bullet {
-  margin: 0 0.5rem 1rem;
+  margin: 0 0.5rem;
   filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
-  color: #000000;
 }
 
 .swiper-pagination .swiper-pagination-bullet-active {
-  background: var(--logoColor);
+  background: var(--primaryColor);
+}
+
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.custom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-button:hover {
+  background-color: #555;
 }/*# sourceMappingURL=StrategienComponent.css.map */
