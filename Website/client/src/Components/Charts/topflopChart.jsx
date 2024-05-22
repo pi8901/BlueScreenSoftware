@@ -56,7 +56,7 @@ const TopFlopChart = () => {
                     nameKey="attribute"
                     cx="50%"
                     cy="50%"
-                    outerRadius={155}
+                    outerRadius={100}
                     fill="var(--logoColor)"
                     label={renderCustomizedLabel}
                     labelLine={true}
