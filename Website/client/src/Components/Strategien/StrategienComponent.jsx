@@ -72,7 +72,7 @@ const StrategienComponent = () => {
     };
 
     const handleDeleteStrategie = (id) => {
-        axios.delete(`http://localhost:8080/strategy/${id}`)
+        axios.delete(`http://localhost:8080/deleteStrategy/${id}`)
         .then(() => {
             setStrategien(prevStrategien => prevStrategien.filter(strategie => strategie.id !== id));
         })
