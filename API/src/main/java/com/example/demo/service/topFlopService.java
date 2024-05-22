@@ -5,31 +5,25 @@ import weka.core.converters.CSVLoader;
 import weka.attributeSelection.CorrelationAttributeEval;
 import weka.attributeSelection.Ranker;
 import java.io.File;
-
 import org.springframework.stereotype.Service;
 import com.example.demo.api.model.attributeRank;
 import weka.attributeSelection.AttributeSelection;
 
 @Service
-public class topFlopService 
-{
+public class topFlopService {
 
     getFilePath path;
 
-    public topFlopService() 
-    {
+    public topFlopService() {
         path = new getFilePath();
     }
 
-     public attributeRank[] getTopFlop()
-     {
-        try 
-        {
+    public attributeRank[] getTopFlop() {
+        try {
             CSVLoader loader = new CSVLoader();
             loader.setSource(new File(path.getPath()));
             Instances data = loader.getDataSet();
-            for (int i = 0; i < 9; i++) 
-            {
+            for (int i = 0; i < 9; i++) {
                 data.deleteAttributeAt(0);
             }
             data.setClassIndex(0);
@@ -42,17 +36,14 @@ public class topFlopService
             int[] selectedAttributes = selector.selectedAttributes();
             attributeRank[] attributeRanks = new attributeRank[selectedAttributes.length - 1];
             double[][] output = selector.rankedAttributes();
-            for (int i = 0; i < output.length; i++) 
-            {
+            for (int i = 0; i < output.length; i++) {
                 attributeRanks[i] = new attributeRank(data.attribute((int) output[i][0]).name(), i + 1, output[i][1]);
             }
             return attributeRanks;
 
-        } catch (Exception e) 
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-     }
+    }
 }
-

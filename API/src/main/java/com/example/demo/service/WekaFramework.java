@@ -1,5 +1,5 @@
 package com.example.demo.service;
-
+/* 
 import java.io.File;
 import java.util.List;
 
@@ -21,14 +21,7 @@ import weka.filters.unsupervised.attribute.NumericToNominal;
 
 @Service
 public class WekaFramework {
-    /**
-     * ermittelt die angegebene Anzahl der Cluster
-     *
-     * @param daten  alleDaten, nurKunden, nurWaren - je nach Analyse
-     * @param number Anzahl der Cluster, die ermittelt werden sollen
-     * @return Die einzelnen Cluster in einem String, getrennt durch \n
-     * @throws Exception Fehlerbehandlung muss noch erledigt werden
-     */
+
     public String findCluster(Instances daten, int number) throws Exception {
         String[] result;
 
@@ -56,16 +49,7 @@ public class WekaFramework {
         return temp;
     }
 
-    /**
-     * Ermittelt aus den Kundendaten die Warengruppen, die haeufig zusammen gekauft
-     * werden Die Regeln werden ueber den Apriori-Algorithmus ermittelt
-     *
-     * @param daten nurWaren - fuer die Analyse, der zusammen gekauften Waren <br>
-     *              je nach Analyse auch alleDaten oder nurKunden als daten
-     * @return Waren, die zusammen gekauft werden, als Stringarray, dessen Dimension
-     *         sich aus der Anzahl der gefundenen Regeln ergibt
-     * @throws Exception Fehlerbehandlung muss noch erledigt werden
-     */
+
     public String[] makeApriori(Instances daten) throws Exception {
 
         // umwandeln in gekauft / nicht gekauft (0/1)
@@ -97,18 +81,7 @@ public class WekaFramework {
         return tmp;
     }
 
-    /**
-     * liefert den haeufigsten Wert eines Attributs zurueck benutzt ZeroR, eine
-     * Wekafunktion fuer das haeufigste Element der nominalen Attribute, bei
-     * numerischen Werten wird der Mittelwert geliefert!
-     *
-     * @param daten Hier wichtig: Daten im <b>arffFormat!</b>
-     *
-     * @param index - Fuer welches Attribut soll das Maximum bestimmt werden (0..9
-     *              hier sinnvoll, da nur diese Daten nominal sind)
-     * @return haeufigstes Element als String
-     * @throws Exception Fehlerbehandlung muss noch erledigt werden
-     */
+
     String findMaximum(Instances daten, int index) throws Exception {
         String[] max;
 
@@ -123,25 +96,15 @@ public class WekaFramework {
         return (max[1]);
     }
 
-    /**
-     * Verteilung der einzelnen Attribute Kundendaten und Einkaufsverhalten, als
-     * <b>absolute</b> Werte
-     *
-     * @param daten - alleDaten
-     * @param index - welches Attribut soll ausgewertet werden?
-     * @return Verteilung des Attributs
-     */
-    public absolute attDistributionAbsolute(Instances daten) 
-    {
+
+    public absolute attDistributionAbsolute(Instances daten) {
         int attCount;
         int[][] abs = new int[9][9];
 
-        for(int j = 0; j <= 8; j++)
-        {
+        for (int j = 0; j <= 8; j++) {
             // Anzahl der moeglichen Werte
             attCount = daten.attributeStats(j).distinctCount;
-            for (int i = 0; i < attCount; i++) 
-            {
+            for (int i = 0; i < attCount; i++) {
                 abs[j][i] = daten.attributeStats(j).nominalCounts[i];
             }
         }
@@ -156,8 +119,7 @@ public class WekaFramework {
     Instances nurKunden;
     Instances arffDaten;
 
-public WekaFramework() throws Exception
-{
+    public WekaFramework() throws Exception {
         path = "API//src//main//resources//static//";
         roh = path + "kd100.csv";
         arffDat = path + "kd100.arff";
@@ -175,11 +137,7 @@ public WekaFramework() throws Exception
         nc.setInputFormat(alleDaten);
         alleDaten = Filter.useFilter(alleDaten, nc); // Filter anwenden
 
-        /*
-         * ARFF - Format der Daten fuer Weka erzeugen Das ist zwar komisch (erst
-         * speichern und dann wieder einlesen), geht sicher auch anders. Drueber
-         * nachdenken .. irgendwann ;-)
-         */
+
         // als ARFF speichern
         ArffSaver saver = new ArffSaver();
         saver.setInstances(alleDaten);
@@ -190,5 +148,6 @@ public WekaFramework() throws Exception
         ArffLoader aLoader = new ArffLoader();
         aLoader.setSource(new File(arffDat));
         arffDaten = aLoader.getDataSet();
+    }
 }
-}
+*/

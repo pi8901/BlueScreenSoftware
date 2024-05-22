@@ -1,7 +1,6 @@
 package com.example.demo.api.model;
 
-public class absolute 
-{
+public class absolute {
     private int[] gender;
     private int[] age;
     private int[] children;
@@ -12,8 +11,7 @@ public class absolute
     private int[] distance;
     private int[] salary;
 
-    public absolute(int[][] data)
-    {
+    public absolute(int[][] data) {
         this.gender = shortenArray(data[0]);
         this.age = shortenArray(data[1]);
         this.children = shortenArray(data[2]);
@@ -25,8 +23,7 @@ public class absolute
         this.salary = shortenArray(data[8]);
     }
 
-    public int[] getGender()
-    {
+    public int[] getGender() {
         return this.gender;
     }
 
@@ -49,43 +46,35 @@ public class absolute
         return shortenedArray;
     }
 
-    public int[] getAge()
-    {
+    public int[] getAge() {
         return this.age;
     }
 
-    public int[] getChildren()
-    {
+    public int[] getChildren() {
         return this.children;
     }
 
-    public int[] getSingle()
-    {
+    public int[] getSingle() {
         return this.single;
     }
 
-    public int[] getJob()
-    {
+    public int[] getJob() {
         return this.job;
     }
 
-    public int[] getDay()
-    {
+    public int[] getDay() {
         return this.day;
     }
 
-    public int[] getTime()
-    {
+    public int[] getTime() {
         return this.time;
     }
 
-    public int[] getDistance()
-    {
+    public int[] getDistance() {
         return this.distance;
     }
 
-    public int[] getSalary()
-    {
+    public int[] getSalary() {
         return this.salary;
     }
 }

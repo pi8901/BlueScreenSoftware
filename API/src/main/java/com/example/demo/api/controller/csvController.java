@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @RestController
-public class getCSV {
+public class csvController {
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadCSV(@RequestParam("file") MultipartFile file) {
@@ -33,14 +32,15 @@ public class getCSV {
             InputStream inputStream = file.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            File outputFile = new File("API/src/main/resources/static/", "outputtt.csv");
+            File outputFile = new File("API/src/main/resources/static/", "data.csv");
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
             String line;
             while ((line = reader.readLine()) != null) {
                 // Process each line of the CSV file here
-                // You can parse the CSV data and save it to a database or do any other processing
-                System.out.println(line);
+                // You can parse the CSV data and save it to a database or do any other
+                // processing
+                // System.out.println(line);
                 writer.write(line);
                 writer.newLine();
             }
@@ -49,8 +49,6 @@ public class getCSV {
             writer.close();
             inputStream.close();
 
-            
-
             return new ResponseEntity<>("File uploaded successfully!", HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,4 +56,3 @@ public class getCSV {
         }
     }
 }
-

@@ -1,13 +1,11 @@
 package com.example.demo.api.model;
 
-public class attributeRank 
-{
+public class attributeRank {
     private String attribute;
     private int rank;
     private double value;
 
-    public attributeRank(String attribute, int rank, double value) 
-    {
+    public attributeRank(String attribute, int rank, double value) {
         this.attribute = attribute;
         this.rank = rank;
         this.value = value;

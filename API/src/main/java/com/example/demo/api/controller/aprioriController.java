@@ -8,21 +8,18 @@ import com.example.demo.api.model.apriori;
 import com.example.demo.service.aprioriService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173") 
-public class aprioriController 
-{
+@CrossOrigin(origins = "http://localhost:5173")
+public class aprioriController {
 
     private aprioriService aprioriService;
 
-     public aprioriController(aprioriService aprioriService)
-     {
+    public aprioriController(aprioriService aprioriService) {
         this.aprioriService = aprioriService;
-     }
+    }
 
-     @GetMapping("/apriori")
-     public apriori[] getApriori() throws Exception
-     {
-         return aprioriService.getApriori();
-     }
+    @GetMapping("/apriori")
+    public apriori[] getApriori() throws Exception {
+        return aprioriService.getApriori();
+    }
 
 }

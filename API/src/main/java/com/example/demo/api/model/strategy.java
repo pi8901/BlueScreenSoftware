@@ -5,7 +5,7 @@ public class strategy {
     private String title;
     private String desc;
 
-    public strategy(int index, String tip, String desc, String photo ) {
+    public strategy(int index, String tip, String desc, String photo) {
         this.id = index;
         this.title = tip;
         this.desc = desc;

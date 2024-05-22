@@ -1,4 +1,4 @@
-package com.example.demo.api.controller;
+/*package com.example.demo.api.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,25 +7,22 @@ import com.example.demo.api.model.absolute;
 import com.example.demo.service.WekaFramework;
 
 @RestController
-public class absoluteController 
-{
+public class absoluteController {
 
     absolute abs;
-     public absoluteController(WekaFramework wekaFramework)
-     {
 
-     }
+    public absoluteController(WekaFramework wekaFramework) {
 
-     @GetMapping("/absolute")
-     public absolute getAbsolute()
-     {
+    }
+
+    @GetMapping("/absolute")
+    public absolute getAbsolute() {
         try {
-           WekaFramework wekaFramework = new WekaFramework();
-           abs = wekaFramework.attDistributionAbsolute(wekaFramework.alleDaten);
+            WekaFramework wekaFramework = new WekaFramework();
+            abs = wekaFramework.attDistributionAbsolute(wekaFramework.alleDaten);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int i = 0;
-         return abs;
-     }
-}
+        return abs;
+    }
+}*/
