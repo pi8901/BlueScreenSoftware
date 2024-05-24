@@ -65,20 +65,23 @@ const StrategienComponent = () => {
                 ...response.data,
                 coverImg: slide_image
             }]);
+            fetchData('strategies');
             setShowModal(false);
-            useEffect();
         }).catch(error => {
             console.error('Upload fehlgeschlagen:', error);
         });
     };
 
     const handleDeleteStrategie = (id) => {
+        console.log(`Deleting strategy with id: ${id}`);
         axios.delete(`http://localhost:8080/deleteStrategy/${id}`)
-        .then(() => {
+        .then(response => {
+            console.log('Delete response:', response); // Log the response from the API
             setStrategien(prevStrategien => prevStrategien.filter(strategie => strategie.id !== id));
         })
         .catch(error => console.error('Error deleting strategy:', error));
     };
+    
 
     if (loading) {
         return <div>Loading...</div>;
@@ -111,8 +114,8 @@ const StrategienComponent = () => {
                 <h1 className="heading outline-solid">Mit unseren Strategien <br />sind Sie ganz vorne dabei</h1>
                 <div className='flex items-center justify-center bg-[#222222] rounded-xl'>
                     <div className='grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-3 gap-5 self-start my-40 ml-7 mr-7'>
-                        {strategien.map(strategie => (
-                            <div key={strategie.id} className='group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30 rounded-xl'>
+                        {strategien.map((strategie, index) => (
+                            <div key={strategie.id || index} className='group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30 rounded-xl'>
                                 <StrategienCards imgSrc={strategie.coverImg}>
                                     <h3 className="text-xl font-bold mb-2">{strategie.title}</h3>
                                     <p>{strategie.desc}</p>

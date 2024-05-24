@@ -1,21 +1,23 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
-import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import com.example.demo.api.model.strategy;
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.api.model.strategy;
 
 
 @Service
 public class strategiesService {
 
     getFilePath path;
-
+    static int counter;
     public strategiesService() {
         path = new getFilePath();
     }
@@ -54,11 +56,12 @@ public class strategiesService {
         // write the strategy to the csv file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.getStratPath(), true))) {
             // Write the strategy object to CSV
-            writer.write(strategy.getId() + ";" + strategy.getTitle() + ";" + strategy.getDesc() + ";"
+            writer.write(counter + ";" + strategy.getTitle() + ";" + strategy.getDesc() + ";"
                     + strategy.getCoverImg());
             writer.newLine();
             System.out.println("Strategy object has been written to CSV successfully!");
             writer.close();
+            counter++;
         } catch (IOException e) {
             e.printStackTrace();
         }
