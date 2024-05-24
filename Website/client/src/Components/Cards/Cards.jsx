@@ -12,7 +12,7 @@ import upload from '../../img/cloud-upload-icon.png';
 const Cards = () => {
   return (
     <div className='cards bg-[#252525]'>
-      <h1 className='card-slogan'>Sieh dir diese tollen Karten an!?</h1>
+      <h1 className='card-slogan'>TBD</h1>
       <div className='cards__container'>
         <div className='cards__wrapper'>
           <ul className='cards__items'>

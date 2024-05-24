@@ -58,7 +58,7 @@ const AprioriChart = () => {
 
     return (
         <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 100, left: 150 }}>
+            <ScatterChart margin={{ top: 20, right: 20, bottom: 150, left: 175 } }>
                 <CartesianGrid strokeDasharray="4 4" />
                 <XAxis
                     type="number"

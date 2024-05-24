@@ -1,5 +1,4 @@
-'use client';
-
+import React, { useEffect, useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -10,80 +9,75 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-
-
-const salesData = [
-  {
-    name: 'Jan',
-    revenue: 4000,
-    profit: 2400, 
-  },
-  {
-    name: 'Feb',
-    revenue: 3000,
-    profit: 1398,
-  },
-  {
-    name: 'Mar',
-    revenue: 9800,
-    profit: 2000,
-  },
-  {
-    name: 'Apr',
-    revenue: 3908,
-    profit: 2780,
-  },
-  {
-    name: 'May',
-    revenue: 4800,
-    profit: 1890,
-  },
-  {
-    name: 'Jun',
-    revenue: 3800,
-    profit: 2390,
-  },
-];
+import { useData } from '../DataContext/DataContext'; // Angenommen, du hast einen DataContext
 
 const BarChartComponent = () => {
+  const { data, loading, error, fetchData } = useData();
+  const [transformedData, setTransformedData] = useState([]);
+
+  useEffect(() => {
+    fetchData('topflop'); // Endpunkt für die topflop-Daten
+  }, []);
+
+  useEffect(() => {
+    if (data.topflop) {
+      const formattedData = data.topflop.map(item => ({
+        name: item.attribute,
+        value: item.value,
+      }));
+      setTransformedData(formattedData);
+    }
+  }, [data]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip" style={{ backgroundColor: 'var(--logoColor)', padding: '10px', border: '1px solid var(--logoColor)' }}>
+          <p className="label">{`Attribute: ${label}`}</p>
+          {payload.map((entry, index) => (
+            <p key={index} className="label">{`${entry.name}: ${entry.value}`}</p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+  
+
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
+      className=''
         width={500}
         height={300}
-        data={salesData}
-        margin={{
-          right: 30,
+        data={transformedData}
+        margin={{top: 20, right: 30, left: 15, bottom: 50,
         }}
+        barGap={10} // Abstand zwischen den Balken
+        barCategoryGap={5} // Abstand zwischen den Balkengruppen
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis
+          dataKey="name"
+          angle={-30}
+          textAnchor="end"
+          interval={0}
+          />
         <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="revenue" fill="#2563eb" />
-        <Bar dataKey="profit" fill="#8b5cf6" />
+        <Tooltip content={<CustomTooltip />} />
+        <Bar dataKey="value" fill="#2563eb" barGap={0.5}/>
       </BarChart>
     </ResponsiveContainer>
   );
 };
 
 export default BarChartComponent;
-
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="p-4 bg-slate-900 flex flex-col gap-4 rounded-md">
-        <p className="text-medium text-lg">{label}</p>
-        <p className="text-sm text-blue-400">
-          Revenue:
-          <span className="ml-2">${payload[0].value}</span>
-        </p>
-        <p className="text-sm text-indigo-400">
-          Profit:
-          <span className="ml-2">${payload[1].value}</span>
-        </p>
-      </div>
-    );
-  }
-};
