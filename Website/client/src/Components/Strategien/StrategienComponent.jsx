@@ -66,6 +66,7 @@ const StrategienComponent = () => {
                 coverImg: slide_image
             }]);
             setShowModal(false);
+            useEffect();
         }).catch(error => {
             console.error('Upload fehlgeschlagen:', error);
         });
