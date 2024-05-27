@@ -1,7 +1,6 @@
 .upload-main-container {
   font-weight: 400;
   line-height: 1.5;
-  background-color: var(--blackColor);
   color: var(--blackColor);
   display: flex;
   justify-content: center;
