@@ -1,20 +1,21 @@
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\service\turnoverService.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\service\strategiesService.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\enums.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\topFlopController.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\aprioriController.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\absolute.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\WekaAnalysis.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\apriori.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\service\aprioriService.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\csvController.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\attributeRank.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\strategy.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\absoluteController.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\turnoverController.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\turnover.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\service\getFilePath.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\service\csvValidator.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\service\topFlopService.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\service\WekaFramework.java
-C:\Users\pi890\OneDrive\Dokumente\UNI\Semester 4\SPM\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\strategiesController.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\ServletInitializer.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\turnover.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\strategy.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\service\turnoverService.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\strategiesController.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\absoluteController.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\WekaAnalysis.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\HomeController.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\service\getFilePath.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\apriori.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\service\aprioriService.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\turnoverController.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\absolute.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\service\absoluteService.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\enums.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\model\attributeRank.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\service\topFlopService.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\aprioriController.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\topFlopController.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\service\strategiesService.java
+C:\Users\marce\IdeaProjects\BlueScreenSoftware\API\src\main\java\com\example\demo\api\controller\csvController.java
