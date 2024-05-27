@@ -118,7 +118,8 @@ const StrategienComponent = () => {
     return (
         <div className="strategie-body bg-[#252525]">
             <div className="slider-container">
-            <h1 className="heading">Mit unseren <span className="highlight">Strategien</span> <br />sind Sie ganz vorne dabei</h1>
+            <div className='circle w-[520px] h-[400px] bg-[#265ffd] rounded-[100%] absolute z-9 top-[110%] left-[50%] translate-x-[-200%] translate-y-[20%] blur-[1000px]'></div>
+            <h1 className="heading">Mit unseren <span className="highlight">Strategien</span> sind Sie  <br />ganz vorne dabei</h1>
                 <div className='flex items-center justify-center bg-[#222222] rounded-xl'>
                     <div className='grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-3 gap-5 self-start my-40 ml-7 mr-7'>
                         {strategien.map((strategie, index) => (
