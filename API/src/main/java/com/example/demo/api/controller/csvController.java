@@ -16,11 +16,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
+/**
+ * Controller for handling CSV file uploads.
+ */
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 public class csvController {
 
+    /**
+     * Handles POST requests to the /upload endpoint for uploading CSV files.
+     *
+     * @param file the CSV file to be uploaded
+     * @return a ResponseEntity with a success or error message and the appropriate HTTP status code
+     */
+    @SuppressWarnings("null")
     @PostMapping("/upload")
     public ResponseEntity<String> uploadCSV(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -40,10 +49,6 @@ public class csvController {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                // Process each line of the CSV file here
-                // You can parse the CSV data and save it to a database or do any other
-                // processing
-                // System.out.println(line);
                 writer.write(line);
                 writer.newLine();
             }
@@ -54,7 +59,6 @@ public class csvController {
 
             return new ResponseEntity<>("File uploaded successfully!", HttpStatus.OK);
         } catch (IOException e) {
-            e.printStackTrace();
             return new ResponseEntity<>("Failed to process the file!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

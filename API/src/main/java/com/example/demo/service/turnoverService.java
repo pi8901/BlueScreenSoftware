@@ -1,5 +1,9 @@
 package com.example.demo.service;
 
+import java.io.File;
+
+import org.springframework.stereotype.Service;
+
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 import weka.filters.Filter;
@@ -7,37 +11,49 @@ import weka.filters.unsupervised.attribute.NumericCleaner;
 import weka.filters.unsupervised.attribute.Remove;
 import weka.clusterers.ClusterEvaluation;
 import weka.clusterers.SimpleKMeans;
-import java.io.File;
 
-import org.springframework.stereotype.Service;
-
+/**
+ * Service class for computing turnover.
+ */
 @Service
 public class turnoverService {
+
+    /** The dataset. */
     Instances data;
+
+    /** Service for getting file paths. */
     getFilePath path;
 
+    /**
+     * Constructs a new turnoverService instance and initializes the file path.
+     */
     public turnoverService() {
         path = new getFilePath();
     }
 
+    /**
+     * Computes the turnover based on specified attribute values.
+     *
+     * @param values the indices of the attributes to consider
+     * @return the turnover result
+     * @throws Exception if an error occurs during the computation
+     */
     public String getTurnover(int[] values) throws Exception {
         CSVLoader loader = new CSVLoader();
         loader.setSource(new File(path.getPath()));
         data = loader.getDataSet();
 
         NumericCleaner nc = new NumericCleaner();
-        nc.setMinThreshold(1.0); // Schwellwert auf 1 setzen
-        nc.setMinDefault(Double.NaN); // alles unter 1 durch ? ersetzen
+        nc.setMinThreshold(1.0);
+        nc.setMinDefault(Double.NaN);
         nc.setInputFormat(data);
-        data = Filter.useFilter(data, nc); // Filter anwenden
+        data = Filter.useFilter(data, nc);
 
-        int[] attributeIndicesToKeep = values; // Beispiel: 5 und 9 sind die Indizes der Attribute, die behalten
-                                                 // werden sollen
+        int[] attributeIndicesToKeep = values;
 
-        // Filtern Sie die Daten, um nur die ausgewählten Attribute zu behalten
         Remove removeFilter = new Remove();
         removeFilter.setAttributeIndicesArray(attributeIndicesToKeep);
-        removeFilter.setInvertSelection(true); // Alle Attribute außer den ausgewählten behalten
+        removeFilter.setInvertSelection(true);
         removeFilter.setInputFormat(data);
         Instances tag = Filter.useFilter(data, removeFilter);
 

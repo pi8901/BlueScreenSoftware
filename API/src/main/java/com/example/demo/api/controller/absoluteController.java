@@ -1,28 +1,41 @@
-/*package com.example.demo.api.controller;
+package com.example.demo.api.controller;
 
+import java.io.IOException;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.api.model.absolute;
-import com.example.demo.service.WekaFramework;
+import com.example.demo.service.absoluteService;
 
+/**
+ * Controller class for handling absolute values.
+ */
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class absoluteController {
 
-    absolute abs;
+    /** Service for handling absolute values. */
+    private absoluteService absoluteService;
 
-    public absoluteController(WekaFramework wekaFramework) {
-
+    /**
+     * Constructs a new absoluteController instance with the provided absoluteService.
+     *
+     * @param absoluteService the service for handling absolute values
+     */
+    public absoluteController(absoluteService absoluteService) {
+        this.absoluteService = absoluteService;
     }
 
+    /**
+     * Retrieves the absolute value.
+     *
+     * @return the absolute value
+     * @throws IOException if an error occurs during the retrieval
+     */
     @GetMapping("/absolute")
-    public absolute getAbsolute() {
-        try {
-            WekaFramework wekaFramework = new WekaFramework();
-            abs = wekaFramework.attDistributionAbsolute(wekaFramework.alleDaten);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return abs;
+    public absolute getAbsolute() throws IOException {
+        return absoluteService.getAbsolute();
     }
-}*/
+}
