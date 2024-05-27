@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import "./Charts.css";
-import AreaChart from './AreaChart.jsx';
 import BarChart from './BarChart.jsx';
-import LineChart from "./LineChart.jsx";
 import TopFlopChart from './topflopChart.jsx';
 import AprioriChart from './aprioriChart.jsx';
 import { RingLoader } from 'react-spinners';
 import { useData } from '../DataContext/DataContext';
 import DayButtons from '../DayButtons/DayButtons';
+import Clock from '../Clock/Clock.jsx'
 
 const Charts = () => {
   const { fetchData, data: apiResponse, loading, error } = useData(); 
@@ -33,7 +32,7 @@ const Charts = () => {
             <DayButtons />
           </GridItem2>
           <GridItem2 title='Umsatzstärkste Uhrzeit'>
-            {/* Content for "Umsatzstärkste Uhrzeit" */}
+            <Clock />
           </GridItem2>
           <GridItem2 title='Stärkster Einkaufstag/Einkaufsuhrzeit, nach Kundenhäufigkeit'>
             {/* Content for "Stärkster Einkaufstag/Einkaufsuhrzeit, nach Kundenhäufigkeit" */}
