@@ -65,14 +65,14 @@ const DropFileInput = props => {
         <>
             <div
                 ref={wrapperRef}
-                className="drop-file-input"
+                className="drop-file-input bg-white/90"
                 onDragEnter={onDragEnter}
                 onDragLeave={onDragLeave}
                 onDrop={onDrop}
             >
                 <div className="drop-file-input__label">
-                    <img className='drop-file-img' src={uploadImg} alt="" />
-                    <p className='text-black '>Drag & Drop your files here</p>
+                    <img className='drop-file-img bg-blend-multiply' src={uploadImg} alt="" />
+                    <p className='text-black '>Drag & Drop hier deine Dateien</p>
                 </div>
                 <input type="file" value="" onChange={onFileDrop}/>
             </div>
@@ -80,7 +80,7 @@ const DropFileInput = props => {
             {
                 fileList.length > 0 ? (
                     <div className="drop-file-preview">
-                        <button className="btn rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm text-white shadow shadow-black/60' drop-file-preview__title" onClick={uploadFiles}>
+                        <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm text-white shadow shadow-black/60' drop-file-preview__title" onClick={uploadFiles}>
                             Analyse starten
                         </button>
                         {uploadError && <p className="text-white font-bold">{uploadError}</p>}

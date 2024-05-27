@@ -8,6 +8,7 @@ import 'swiper/css/navigation';
 import slide_image from "../../img/img_1.jpg";
 import { useData } from '../DataContext/DataContext';
 import axios from 'axios';
+import { RingLoader } from 'react-spinners';
 
 const StrategienComponent = () => {
     const { data, loading, error, fetchData } = useData();
@@ -86,7 +87,11 @@ const StrategienComponent = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-[#252525]">
+                <RingLoader speedMultiplier={1} color="var(--logoColor)" />
+            </div>
+        );
     }
 
     if (error) {
@@ -113,7 +118,7 @@ const StrategienComponent = () => {
     return (
         <div className="strategie-body bg-[#252525]">
             <div className="slider-container">
-                <h1 className="heading outline-solid">Mit unseren Strategien <br />sind Sie ganz vorne dabei</h1>
+            <h1 className="heading">Mit unseren <span className="highlight">Strategien</span> <br />sind Sie ganz vorne dabei</h1>
                 <div className='flex items-center justify-center bg-[#222222] rounded-xl'>
                     <div className='grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-3 gap-5 self-start my-40 ml-7 mr-7'>
                         {strategien.map((strategie, index) => (
