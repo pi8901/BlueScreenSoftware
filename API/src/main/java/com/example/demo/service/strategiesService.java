@@ -20,36 +20,42 @@ public class strategiesService {
     static int counter;
     public strategiesService() {
         path = new getFilePath();
+        counter = getlastIndex();
+    }
+
+    private int getlastIndex() {
+        return getStrategies().length;
     }
 
     public strategy[] getStrategies() {
         ArrayList<strategy> strategies = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path.getStratPath()))) {
+            StringBuilder lineBuilder = new StringBuilder();
             String line;
-            // Skip header line
-            // br.readLine();
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                int index = Integer.parseInt(parts[0]);
-                String tip = parts[1];
-                String photo = parts[3];
-                String desc = parts[2];
-                strategy s = new strategy(index, tip, desc, photo);
-                strategies.add(s);
+                if (lineBuilder.length() > 0) {
+                    lineBuilder.append("\n");
+                }
+                lineBuilder.append(line);
+
+                String completeLine = lineBuilder.toString();
+                String[] parts = completeLine.split(";");
+                if (parts.length == 4) {  // assuming a valid line has exactly 4 parts
+                    int index = Integer.parseInt(parts[0]);
+                    String tip = parts[1];
+                    String desc = parts[2];
+                    String photo = parts[3];
+                    strategy s = new strategy(index, tip, desc, photo);
+                    strategies.add(s);
+                    lineBuilder.setLength(0); // reset the builder for the next line
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return strategies.toArray(new strategy[0]);
-    }
 
-    public static void main(String[] args) {
-        strategiesService strategiesService = new strategiesService();
-        strategy[] strategies = strategiesService.getStrategies();
-        for (strategy s : strategies) {
-            System.out.println(s);
-        }
+        return strategies.toArray(new strategy[0]);
     }
 
     public void writeStrategy(strategy strategy) {
