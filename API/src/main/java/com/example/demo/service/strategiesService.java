@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,15 +22,11 @@ public class strategiesService {
     /** Service for getting file paths. */
     getFilePath path;
 
-    /** Counter for generating strategy IDs. */
-    static int counter;
-
     /**
      * Constructs a new strategiesService instance and initializes the file path and counter.
      */
     public strategiesService() {
         path = new getFilePath();
-        counter = getlastIndex();
     }
 
     /**
@@ -38,7 +35,14 @@ public class strategiesService {
      * @return the last index of strategies
      */
     private int getlastIndex() {
-        return getStrategies().length;
+        strategy[] strategies = getStrategies();
+        int lastIndex = 0;
+        for (strategy s : strategies) {
+            if (s.getId() > lastIndex) {
+                lastIndex = s.getId();
+            }
+        }
+        return lastIndex;
     }
 
     /**
@@ -85,40 +89,47 @@ public class strategiesService {
     public void writeStrategy(strategy strategy) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.getStratPath(), true))) {
             // Write the strategy object to CSV
-            writer.write(counter + ";" + strategy.getTitle() + ";" + strategy.getDesc() + ";"
+            writer.write(getlastIndex() + 1 + ";" + strategy.getTitle() + ";" + strategy.getDesc() + ";"
                     + strategy.getCoverImg());
             writer.newLine();
             writer.close();
-            counter++;
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Deletes a strategy from the CSV file by its ID.
-     *
-     * @param id the ID of the strategy to be deleted
-     */
-    public void deleteStrategy(int id) {
-        try (BufferedReader br = new BufferedReader(new FileReader(path.getStratPath()))) {
-            String line;
-            StringBuffer inputBuffer = new StringBuffer();
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                int index = Integer.parseInt(parts[0]);
-                if (index != id) {
-                    inputBuffer.append(line);
-                    inputBuffer.append('\n');
+/**
+ * Deletes a strategy from the CSV file by its ID.
+ *
+ * @param id the ID of the strategy to be deleted
+ */
+public void deleteStrategy(int id) {
+    String tempFilePath = path.getStratPath() + ".tmp";
+    try (BufferedReader reader = new BufferedReader(new FileReader(path.getStratPath()));
+         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFilePath))) {
+        
+        String currentLine;
+        while ((currentLine = reader.readLine()) != null) {
+            String[] parts = currentLine.split(";");
+            if (parts.length == 4) {
+                int currentId = Integer.parseInt(parts[0]);
+                if (currentId != id) {
+                    writer.write(currentLine);
+                    writer.newLine();
                 }
             }
-            String inputStr = inputBuffer.toString();
-            br.close();
-            FileOutputStream fileOut = new FileOutputStream(path.getStratPath());
-            fileOut.write(inputStr.getBytes());
-            fileOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        
+        // Close the reader and writer to ensure all data is flushed and the file handles are released
+        reader.close();
+        writer.close();
+        
+        // Replace the original file with the temporary file
+        new File(path.getStratPath()).delete();
+        new File(tempFilePath).renameTo(new File(path.getStratPath()));
+        
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 }
