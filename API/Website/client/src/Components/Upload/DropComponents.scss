@@ -2,13 +2,13 @@
     position: relative;
     width: 400px;
     height: 200px;
-    border: 2px dashed var(--primaryColor);
+    border: 2px dashed var(--blackColor);
     border-radius: 20px;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #7c3aed;
+    // background-color: var(--greyText);
     transition: all 0.5s ease-out;
 }
 
@@ -27,12 +27,12 @@
 
 .drop-file-input:hover,
 .drop-file-input.dragover {
-    opacity: 0.6;
-    background: rgb(17, 0, 255);
+    opacity: 1;
+    background: var(--logoBlue);
 
 }
 .drop-file-input:hover .drop-file-input__label p {
-    color: rgb(255, 251, 0); /* Ändern Sie hier die gewünschte Farbe */
+    color: rgb(255, 0, 0); /* Ändern Sie hier die gewünschte Farbe */
     display: none;
 }
 
@@ -46,7 +46,7 @@
     display: block;
     font-size: 17px;
     font-weight: 500;
-    color: rgb(255, 251, 0); /* Ändern Sie hier die gewünschte Farbe */
+    color: rgb(255, 255, 255); /* Ändern Sie hier die gewünschte Farbe */
 }
 // === Hover beendet ===
 
@@ -55,7 +55,7 @@
     color: var(--primaryColor);
     font-weight: 600;
     padding: 10px;
-    display: flex; /* Flexbox verwenden */
+    display: flex;
     flex-direction: column; /* In Spalte anordnen */
     align-items: center; /* Zentrieren vertikal */
     justify-content: center; /* Zentrieren horizontal */
@@ -67,6 +67,7 @@
 
 .drop-file-preview {
     margin-top: 30px;
+    font-weight: 500;
 }
 
 .drop-file-preview p {
@@ -74,7 +75,18 @@
 }
 
 .drop-file-preview__title {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: .8rem 1rem;
+    color: var(--greyText);
     margin-bottom: 20px;
+}
+
+.drop-file-preview__title:hover {
+    color: var(--primaryColor);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .drop-file-preview__item {

@@ -1,6 +1,5 @@
 .cards {
   padding: 4rem;
-  background: var(--blackColor);
 }
 
 .card-slogan {
@@ -94,7 +93,6 @@
 
 .cards__item__info {
   padding: 20px 30px 30px;
-  background: var(--greyText);
 }
 
 .cards__item__text {

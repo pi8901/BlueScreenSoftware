@@ -1,26 +1,21 @@
 import React, { useRef, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-
 import './DropComponents.css';
-
 import { ImageConfig } from "./ImageConfig.jsx";
 import uploadImg from "../../img/cloud-upload-regular-240.png";
-
 import axios from 'axios';
 import { DataContext } from '../DataContext/DataContext';
+import { RingLoader } from 'react-spinners';
 
 const DropFileInput = props => {
-
     const wrapperRef = useRef(null);
-
     const [fileList, setFileList] = useState([]);
     const [uploadError, setUploadError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { fetchData } = useContext(DataContext);
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
-
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
-
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
     const onFileDrop = (e) => {
@@ -43,6 +38,7 @@ const DropFileInput = props => {
 
     const uploadFiles = () => {
         setUploadError(null);
+        setLoading(true);
         fileList.forEach(file => {
             const formData = new FormData();
             formData.append("file", file);
@@ -54,12 +50,14 @@ const DropFileInput = props => {
                 console.log('Upload erfolgreich:', response);
                 fetchData('apriori');
                 fetchData('topflop');
-                //fetchData('turnover');
+                fetchData('turnover');
                 fetchData('strategies');
                 fileRemove(file);
             }).catch(error => {
                 console.error('Upload fehlgeschlagen:', error);
                 setUploadError("Upload fehlgeschlagen: " + error.message);
+            }).finally(() => {
+                setLoading(false);
             });
         });
     };
@@ -68,21 +66,22 @@ const DropFileInput = props => {
         <>
             <div
                 ref={wrapperRef}
-                className="drop-file-input"
+                className="drop-file-input bg-white/90"
                 onDragEnter={onDragEnter}
                 onDragLeave={onDragLeave}
                 onDrop={onDrop}
             >
                 <div className="drop-file-input__label">
-                    <img className='drop-file-img' src={uploadImg} alt="" />
-                    <p className='text-black '>Drag & Drop your files here</p>
+                    <img className='drop-file-img bg-blend-multiply' src={uploadImg} alt="" />
+                    <p className='text-black '>Drag & Drop hier deine Dateien</p>
                 </div>
                 <input type="file" value="" onChange={onFileDrop}/>
             </div>
+            {loading && <RingLoader speedMultiplier={1} color="var(--logoColor)" className='mr-auto ml-auto' />}
             {
                 fileList.length > 0 ? (
                     <div className="drop-file-preview">
-                        <button className="btn rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm text-white shadow shadow-black/60' drop-file-preview__title" onClick={uploadFiles}>
+                        <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm text-white shadow shadow-black/60' drop-file-preview__title" onClick={uploadFiles}>
                             Analyse starten
                         </button>
                         {uploadError && <p className="text-white font-bold">{uploadError}</p>}

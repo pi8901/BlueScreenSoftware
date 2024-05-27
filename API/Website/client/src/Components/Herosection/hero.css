@@ -66,7 +66,7 @@
 
 .buttn--primary {
   background-color: var(--primaryColor);
-  color: #242424;
+  color: #252525;
   border: 1px solid var(--primaryColor);
 }
 
@@ -86,7 +86,7 @@
 .buttn--large {
   padding: 12px 26px;
   font-size: 25px;
-  background: var(--blackColor);
+  background: #252525;
 }
 
 .buttn--medium:hover, .buttn--large:hover {

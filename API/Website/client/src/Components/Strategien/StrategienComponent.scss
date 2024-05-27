@@ -18,11 +18,22 @@
     position: relative;
   }
   
-  .heading {
-    padding: 1rem 0;
-    font-size: 3.5rem;
-    text-align: center;
-  }
+ 
+.heading {
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.heading .highlight {
+  color: #265ffd; /* Blaue Farbe für Hervorhebung */
+  font-size: 3rem; /* Größere Schriftgröße für Hervorhebung */
+  font-weight: 900; /* Dickere Schriftart für Hervorhebung */
+}
+
+
   
   .swiper_container {
     height: 52rem;
