@@ -6,7 +6,8 @@ import AprioriChart from './aprioriChart.jsx';
 import { RingLoader } from 'react-spinners';
 import { useData } from '../DataContext/DataContext';
 import DayButtons from '../DayButtons/DayButtons';
-import Clock from '../Clock/Clock.jsx'
+import Clock from '../Clock/Clock.jsx';
+import BestTimeValue from '../bestTimeValue/bestTimeValue.jsx';
 
 const Charts = () => {
   const { fetchData, data: apiResponse, loading, error } = useData(); 
@@ -35,7 +36,7 @@ const Charts = () => {
             <Clock />
           </GridItem2>
           <GridItem2 title='Stärkster Einkaufstag/Einkaufsuhrzeit, nach Kundenhäufigkeit'>
-            {/* Content for "Stärkster Einkaufstag/Einkaufsuhrzeit, nach Kundenhäufigkeit" */}
+            <BestTimeValue />
           </GridItem2>
         </div>
 
@@ -46,7 +47,6 @@ const Charts = () => {
           </div> 
         </div>
       </div>
-      {/* <h1 className='text-white'>{JSON.stringify(apiResponse)}</h1> */}
     </div>
   );
 }
@@ -64,7 +64,7 @@ function GridItem({ title, children }) {
 
 function GridItem2({ title, children }) {
   return (
-    <div className="flex flex-col items-center justify-center p-4 border border-slate-900 bg-slate-900/50 rounded-xl h-[225px] shadow-xl">
+    <div className="flex flex-col items-center justify-center p-4 border border-slate-900 bg-slate-900/50 rounded-xl h-[300px] shadow-xl">
       <h3 className="text-2xl font-semibold text-white mb-4">{title}</h3>
         {children}
     </div>

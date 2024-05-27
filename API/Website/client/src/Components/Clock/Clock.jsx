@@ -21,7 +21,7 @@ const Clock = () => {
             console.log("API Response:", data['turnover/hour']);
             const lines = data['turnover/hour'].split('\n');
             const [hourRange, value] = lines[0].split(',');
-            const hour = hourRange.split('-')[0].replace(/'/g, '').trim(); // Nur die erste Stunde extrahieren und Anführungszeichen entfernen
+            const hour = hourRange.split('-')[0].replace(/[^0-9]/g, '').trim(); // Nur die erste Stunde extrahieren und nicht-numerische Zeichen entfernen
             console.log("Extracted Hour:", hour); // Debugging: Ausgabe der extrahierten Stunde
             console.log("Extracted Value:", value); // Debugging: Ausgabe des extrahierten Werts
             setStrongestHour(hour);
@@ -41,11 +41,15 @@ const Clock = () => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['TimeClock']}>
-                <DemoItem label="">
+            <DemoContainer components={['TimeClock']} sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <DemoItem label="" sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <TimeClock 
                         value={timeValue} 
-                        readOnly 
+                        readOnly
+                        sx={{
+                            transform: 'scale(0.85)', // Verkleinert die gesamte Uhr
+                            transformOrigin: 'center', // Zentriert die Verkleinerung
+                        }}
                     />
                 </DemoItem>
             </DemoContainer>
