@@ -50,6 +50,7 @@ const DropFileInput = props => {
                 console.log('Upload erfolgreich:', response);
                 fetchData('apriori');
                 fetchData('topflop');
+                fetchData('turnover');
                 fetchData('strategies');
                 fileRemove(file);
             }).catch(error => {
