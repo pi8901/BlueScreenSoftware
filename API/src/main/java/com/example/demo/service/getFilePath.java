@@ -11,7 +11,7 @@ public class getFilePath {
      * @return the path for the data file
      */
     public String getPath() {
-        return "C:\\Users\\ReneW\\Documents\\BlueScreenSoftware\\API\\src\\main\\resources\\static\\outputtt.csv";
+        return "C:\\Users\\ReneW\\Documents\\BlueScreenSoftware\\API\\src\\main\\resources\\static\\data.csv";
     }
 
     /**
