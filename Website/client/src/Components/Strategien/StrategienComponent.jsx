@@ -10,14 +10,6 @@ import { useData } from '../DataContext/DataContext';
 import axios from 'axios';
 
 const StrategienComponent = () => {
-    const strategieRef = useRef(null);
-
-    const handleNavigateToStrategie = () => {
-        if (strategieRef.current) {
-            strategieRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
     const { data, loading, error, fetchData } = useData();
     const [strategien, setStrategien] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -26,12 +18,12 @@ const StrategienComponent = () => {
         desc: '',
         coverImg: ''
     });
+    const strategieRefs = useRef({});
 
     useEffect(() => {
         fetchData('strategies');
     }, []);
 
-   
     useEffect(() => {
         if (data.strategies) {
             setStrategien(data.strategies.map(strategy => ({
@@ -81,7 +73,17 @@ const StrategienComponent = () => {
         })
         .catch(error => console.error('Error deleting strategy:', error));
     };
-    
+
+    const handleNavigateToStrategie = (id) => {
+        if (strategieRefs.current[id]) {
+            strategieRefs.current[id].scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const previewText = (text, maxLength) => {
+        if (text.length <= maxLength) return text;
+        return text.slice(0, maxLength) + '...';
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -91,17 +93,17 @@ const StrategienComponent = () => {
         return <div>Error: {error.message}</div>;
     }
 
-    const StrategienCards = ({ children, imgSrc, ...props }) => {
+    const StrategienCards = ({ id, children, imgSrc, ...props }) => {
         return (
-            <div ref={strategieRef} {...props} className='relative'>
+            <div {...props} className='relative'>
                 <div className="">
                     <img src={imgSrc} alt="" className='transition-transform h-full w-full object-cover group-hover:rotate-2 group-hover:scale-125' />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
                 <div className="absolute inset-0 flex flex-col items-center justify-center px-9 text-center translate-y-[60%] group-hover:translate-y-0 transition-all text-white">
                     {children}
-                    <button className='rounded-full bg-neutral-900 py-2 px-3.5 text-sm text-white' onClick={handleNavigateToStrategie}>
-                        Zu den Strategien
+                    <button className='rounded-full bg-neutral-900 py-2 px-3.5 text-sm text-white' onClick={() => handleNavigateToStrategie(id)}>
+                        Zu der Strategie
                     </button>
                 </div>
             </div>
@@ -116,9 +118,9 @@ const StrategienComponent = () => {
                     <div className='grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-3 gap-5 self-start my-40 ml-7 mr-7'>
                         {strategien.map((strategie, index) => (
                             <div key={strategie.id || index} className='group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30 rounded-xl'>
-                                <StrategienCards imgSrc={strategie.coverImg}>
+                                <StrategienCards id={strategie.id} imgSrc={strategie.coverImg}>
                                     <h3 className="text-xl font-bold mb-2">{strategie.title}</h3>
-                                    <p>{strategie.desc}</p>
+                                    <p>{previewText(strategie.desc, 100)}</p>
                                     <br />
                                 </StrategienCards>
                             </div>
@@ -130,7 +132,7 @@ const StrategienComponent = () => {
                 <div className='max-w[1240px] mx-auto'>
                     <div className='grid lg:grid-cols-1 gap-8 px-4 text-black'>
                         {strategien.map((strategie) =>
-                            <div key={strategie.id} className='bg-white rounded-xl overflow-hidden drop-shadow-md my-5 ml-10 mr-10'>
+                            <div key={strategie.id} ref={el => (strategieRefs.current[strategie.id] = el)} className='bg-white rounded-xl overflow-hidden drop-shadow-md my-5 ml-10 mr-10'>
                                 <img className='h-56 w-full object-cover' src={strategie.coverImg} alt="" />
                                 <div className='p-8'>
                                     <h3 className="font-bold text-2xl my-1">{strategie.title}</h3>
