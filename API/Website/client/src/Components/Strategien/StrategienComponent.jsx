@@ -20,6 +20,7 @@ const StrategienComponent = () => {
         coverImg: ''
     });
     const strategieRefs = useRef({});
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         fetchData('strategies');
@@ -34,6 +35,16 @@ const StrategienComponent = () => {
         }
     }, [data]);
 
+    useEffect(() => {
+        if (!showModal) {
+            setNewStrategie({
+                title: '',
+                desc: '',
+                coverImg: ''
+            });
+        }
+    }, [showModal]);
+    
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewStrategie(prev => ({
@@ -41,6 +52,11 @@ const StrategienComponent = () => {
             [name]: value
         }));
     };
+
+    const refreshData = () => {
+        setRefresh(prev => !prev); // Toggle den Zustand, um die Seite zu aktualisieren
+        fetchData('strategies');
+    }
 
     const handleAddStrategie = () => {
         const formData = new FormData();
@@ -59,6 +75,7 @@ const StrategienComponent = () => {
                 coverImg: slide_image
             }]);
             fetchData('strategies');
+            refreshData();
             setShowModal(false);
         }).catch(error => {
             console.error('Upload fehlgeschlagen:', error);
@@ -82,8 +99,13 @@ const StrategienComponent = () => {
     };
 
     const previewText = (text, maxLength) => {
-        if (text.length <= maxLength) return text;
-        return text.slice(0, maxLength) + '...';
+        try{
+            if (text.length <= maxLength) return text;
+            return text.slice(0, maxLength) + '...';
+        }
+        catch{
+
+        }
     };
 
     if (loading) {
@@ -121,17 +143,17 @@ const StrategienComponent = () => {
             <div className='circle w-[520px] h-[400px] bg-[#265ffd] rounded-[100%] absolute z-9 top-[110%] left-[50%] translate-x-[-200%] translate-y-[20%] blur-[1000px]'></div>
             <h1 className="heading">Mit unseren <span className="highlight">Strategien</span> sind Sie  <br />ganz vorne dabei!</h1>
                 <div className='flex items-center justify-center bg-[#222222] rounded-2xl'>
-                    <div className='grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-3 gap-5 self-start my-40 ml-7 mr-7'>
-                        {strategien.map((strategie, index) => (
-                            <div key={strategie.id || index} className='group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30 rounded-xl'>
-                                <StrategienCards id={strategie.id} imgSrc={strategie.coverImg}>
-                                    <h3 className="text-xl font-bold mb-2">{strategie.title}</h3>
-                                    <p>{previewText(strategie.desc, 100)}</p>
-                                    <br />
-                                </StrategienCards>
-                            </div>
-                        ))}
-                    </div>
+                <div className='grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-3 gap-5 self-start my-40 ml-7 mr-7'>
+                    {strategien.map((strategie) => (
+                        <div key={strategie.id} className='group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30 rounded-xl'>
+                            <StrategienCards id={strategie.id} imgSrc={strategie.coverImg}>
+                                <h3 className="text-xl font-bold mb-2">{strategie.title}</h3>
+                                <p>{previewText(strategie.desc, 100)}</p>
+                                <br />
+                            </StrategienCards>
+                        </div>
+                    ))}
+                </div>
                 </div>
             </div>
             <div className='w-full py-[p50x]'>

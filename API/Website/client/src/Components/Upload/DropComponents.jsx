@@ -41,7 +41,6 @@ const DropFileInput = props => {
         setRefresh(prev => !prev); // Toggle den Zustand, um die Seite zu aktualisieren
         fetchData('apriori');
         fetchData('topflop');
-        fetchData('turnover');
         fetchData('strategies');
         fetchData('turnover/day');
         fetchData('turnover/hour');

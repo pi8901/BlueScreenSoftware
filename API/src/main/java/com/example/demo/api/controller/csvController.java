@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Controller for handling CSV file uploads.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:5173")
 public class csvController {
 
     /**
@@ -44,7 +44,8 @@ public class csvController {
             InputStream inputStream = file.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            File outputFile = new File("..\\..\\Data\\data.csv");
+            //File outputFile = new File("..\\..\\Data\\data.csv");
+            File outputFile = new File("C:\\Users\\ReneW\\Documents\\BlueScreenSoftware\\API\\src\\main\\resources\\static\\data.csv");
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
             String line;

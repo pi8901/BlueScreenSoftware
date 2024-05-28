@@ -20,7 +20,7 @@ const Charts = () => {
 
       <div className='flex min-h-screen flex-col items-center justify-center px-4 md:px-6 xl:px-8 py-33'>
         <div className='grid xl:grid-cols-2 lg:grid-cols-2 w-full gap-10 max-w-[1440px]'>
-          <GridItem title='Turnover Diagramm'>
+          <GridItem title='Topflop Diagramm'>
             <BarChart />
           </GridItem>
           <GridItem title='Topflop Diagramm'>

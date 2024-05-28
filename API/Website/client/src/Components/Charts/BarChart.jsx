@@ -16,7 +16,7 @@ const BarChartComponent = () => {
   const [transformedData, setTransformedData] = useState([]);
 
   useEffect(() => {
-    fetchData('topflop'); // Endpunkt für die topflop-Daten
+    fetchData('absolute'); // Endpunkt für die topflop-Daten
   }, []);
 
   useEffect(() => {
