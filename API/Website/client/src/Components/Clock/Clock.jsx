@@ -19,12 +19,9 @@ const Clock = () => {
 
     useEffect(() => {
         if (data['turnover/hour']) {
-            console.log("API Response:", data['turnover/hour']);
             const lines = data['turnover/hour'].split('\n');
             const [hourRange, value] = lines[0].split(',');
             const hour = hourRange.split('-')[0].replace(/[^0-9]/g, '').trim(); // Nur die erste Stunde extrahieren und nicht-numerische Zeichen entfernen
-            console.log("Extracted Hour:", hour); // Debugging: Ausgabe der extrahierten Stunde
-            console.log("Extracted Value:", value); // Debugging: Ausgabe des extrahierten Werts
             setStrongestHour(hour);
             setStrongestHourValue(value);
         }
@@ -42,25 +39,29 @@ const Clock = () => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['TimeClock']} sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <DemoItem label="" sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <DemoContainer components={['TimeClock']} sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                <DemoItem label="" sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent',  }}>
                     <TimeClock 
                         value={timeValue} 
                         readOnly
                         sx={{
+                            backgroundColor: 'transparent', // Setzt den Hintergrund der Uhr transparent
+                            '.MuiTimeClock-root': {
+                                backgroundColor: '#f0f0f0', // Ändert die Farbe des Ziffernblatts
+                            },
                             transform: 'scale(0.85)', // Verkleinert die gesamte Uhr
                             transformOrigin: 'center', // Zentriert die Verkleinerung
                             '& .MuiTimeClock-arrowSwitcher': {
-                                color: '#4caf50', // Ändert die Farbe der Zeiger
+                                backgroundColor: '#4caf50', // Ändert die Farbe der Zeiger
                             },
                             '& .MuiClockNumber-root': {
-                                color: '#4caf50', // Ändert die Farbe der Zahlen
+                                color: '#ffffff', // Ändert die Farbe der Zahlen
                             },
                             '& .MuiClock-pin': {
-                                backgroundColor: green[500], // Ändert die Farbe des Pins in der Mitte
+                                backgroundColor: '#f0f0f0', // Ändert die Farbe des Pins in der Mitte
                             },
                             '& .MuiClock-amButton, & .MuiClock-pmButton': {
-                                color: '#4caf50', // Ändert die Farbe der AM/PM Buttons
+                                backgroundColor: '#4caf50', // Ändert die Farbe der AM/PM Buttons
                             },
                         }}
                     />

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Cards.css';
 import CardItem from './CardItem';
 import bild from '../../img/startcard1.jpg';
@@ -6,8 +7,6 @@ import bild2 from '../../img/startcard2.jpg';
 import bild3 from '../../img/startcard3.jpg';
 import bild4 from '../../img/startcard4.jpg';
 import upload from '../../img/cloud-upload-icon.png';
-
-
 
 const Cards = () => {
   return (
