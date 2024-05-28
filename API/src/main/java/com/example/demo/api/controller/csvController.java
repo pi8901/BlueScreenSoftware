@@ -29,6 +29,7 @@ public class csvController {
      * @param file the CSV file to be uploaded
      * @return a ResponseEntity with a success or error message and the appropriate HTTP status code
      */
+    @SuppressWarnings("null")
     @PostMapping("/upload")
     public ResponseEntity<String> uploadCSV(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -43,8 +44,7 @@ public class csvController {
             InputStream inputStream = file.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            // Save file to a relative path or temporary directory
-            File outputFile = new File(System.getProperty("java.io.tmpdir"), "data.csv");
+            File outputFile = new File("..\\..\\Data\\data.csv");
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
             String line;
@@ -59,8 +59,7 @@ public class csvController {
 
             return new ResponseEntity<>("File uploaded successfully!", HttpStatus.OK);
         } catch (IOException e) {
-            e.printStackTrace(); // Add detailed logging
-            return new ResponseEntity<>("Failed to process the file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to process the file!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

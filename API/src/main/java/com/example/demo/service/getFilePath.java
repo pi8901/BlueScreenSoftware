@@ -11,7 +11,8 @@ public class getFilePath {
      * @return the path for the data file
      */
     public String getPath() {
-        return "C:\\Users\\marce\\IdeaProjects\\BlueScreenSoftware\\API\\src\\main\\resources\\static\\data.csv";
+        //return "C:\\Users\\marce\\IdeaProjects\\BlueScreenSoftware\\Data\\data.csv";
+        return "..\\..\\Data\\data.csv";
     }
 
     /**
@@ -20,6 +21,7 @@ public class getFilePath {
      * @return the path for the strategies file
      */
     public String getStratPath() {
-        return "C:\\Users\\marce\\IdeaProjects\\BlueScreenSoftware\\API\\src\\main\\resources\\static\\strategies.csv";
+       //return "C:\\Users\\marce\\IdeaProjects\\BlueScreenSoftware\\Data\\strategies.csv";
+        return "..\\..\\Data\\strategies.csv";
     }
 }
