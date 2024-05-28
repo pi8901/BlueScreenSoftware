@@ -62,8 +62,33 @@ const DropFileInput = props => {
                 console.log('Upload erfolgreich:', response);
                 fileRemove(file);
             }).catch(error => {
-                console.error('Das hat nicht geklappt:', error);
-                setUploadError("Das hat nicht geklappt: " + error.message);
+                if (error.response) {
+                    // Server antwortete mit einem Statuscode außerhalb des Bereichs von 2xx
+                    switch (error.response.status) {
+                        case 400:
+                            setUploadError("Fehlerhafte Anfrage: hochgeladene Datei ist ungültig.");
+                            break;
+                        case 401:
+                            setUploadError("Nicht autorisiert: Bitte melden Sie sich an.");
+                            break;
+                        case 404:
+                            setUploadError("Server nicht gefunden: Server-URL überprüfen.");
+                            break;
+                        case 500:
+                            setUploadError("Serverfehler: Bitte später erneut versuchen.");
+                            break;
+                        default:
+                            setUploadError(`Fehler: ${error.response.status} - ${error.response.data}`);
+                    }
+                }
+                    else if (error.request) {
+                        // Die Anfrage wurde gestellt, aber keine Antwort erhalten
+                        setUploadError("Keine Antwort vom Server erhalten.");
+                    } else {
+                        // Ein Fehler trat bei der Erstellung der Anfrage auf
+                        setUploadError("Fehler beim Erstellen der Anfrage: " + error.message);
+                    }
+                    console.error('Das hat nicht geklappt:', error);
             });
         });
 
