@@ -58,6 +58,7 @@ public class turnoverService {
         Instances tag = Filter.useFilter(data, removeFilter);
 
         SimpleKMeans model = new SimpleKMeans();
+        model.setNumClusters(1);
         model.buildClusterer(tag);
         ClusterEvaluation eval = new ClusterEvaluation();
         eval.setClusterer(model);

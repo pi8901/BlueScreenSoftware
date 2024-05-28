@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "com.example.demo.service.test",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
             "name": "WekaAnalysis",
             "request": "launch",
             "mainClass": "com.example.demo.WekaAnalysis",

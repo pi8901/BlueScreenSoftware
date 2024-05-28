@@ -12,6 +12,7 @@ const DropFileInput = props => {
     const [fileList, setFileList] = useState([]);
     const [uploadError, setUploadError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [refresh, setRefresh] = useState(false); // Zustand für die Aktualisierung hinzufügen
     const { fetchData } = useContext(DataContext);
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
@@ -36,29 +37,39 @@ const DropFileInput = props => {
         setUploadError(null);
     }
 
+    const handleUploadSuccess = () => {
+        setRefresh(prev => !prev); // Toggle den Zustand, um die Seite zu aktualisieren
+        fetchData('apriori');
+        fetchData('topflop');
+        fetchData('turnover');
+        fetchData('strategies');
+        fetchData('turnover/day');
+        fetchData('turnover/hour');
+        fetchData('turnover/customer');
+    };
+
     const uploadFiles = () => {
         setUploadError(null);
         setLoading(true);
-        fileList.forEach(file => {
+        const uploads = fileList.map(file => {
             const formData = new FormData();
             formData.append("file", file);
-            axios.post('http://localhost:8080/upload', formData, {
+            return axios.post('http://localhost:8080/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
                 console.log('Upload erfolgreich:', response);
-                fetchData('apriori');
-                fetchData('topflop');
-                fetchData('turnover');
-                fetchData('strategies');
                 fileRemove(file);
             }).catch(error => {
                 console.error('Upload fehlgeschlagen:', error);
                 setUploadError("Upload fehlgeschlagen: " + error.message);
-            }).finally(() => {
-                setLoading(false);
             });
+        });
+
+        Promise.all(uploads).then(() => {
+            setLoading(false);
+            handleUploadSuccess(); // Callback aufrufen, nachdem alle Uploads abgeschlossen sind
         });
     };
 
@@ -105,7 +116,7 @@ const DropFileInput = props => {
 }
 
 DropFileInput.propTypes = {
-    onFileChange: PropTypes.func
-}
+    onFileChange: PropTypes.func,
+};
 
 export default DropFileInput;
