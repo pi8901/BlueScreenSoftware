@@ -40,7 +40,7 @@ const BarChartComponent = () => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="custom-tooltip" style={{ backgroundColor: 'var(--logoColor)', padding: '10px', border: '1px solid var(--logoColor)' }}>
+        <div className="custom-tooltip" style={{ backgroundColor: 'white', padding: '10px' }}>
           <p className="label">{`Attribute: ${label}`}</p>
           {payload.map((entry, index) => (
             <p key={index} className="label">{`${entry.name}: ${entry.value}`}</p>
@@ -74,7 +74,7 @@ const BarChartComponent = () => {
           />
         <YAxis />
         <Tooltip content={<CustomTooltip />} />
-        <Bar dataKey="value" fill="#2563eb" barGap={0.5}/>
+        <Bar dataKey="value" fill="var(--logoColor)" barGap={0.5}/>
       </BarChart>
     </ResponsiveContainer>
   );

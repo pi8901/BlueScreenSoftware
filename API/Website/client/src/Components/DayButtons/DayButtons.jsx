@@ -12,11 +12,8 @@ const DayButtons = () => {
 
     useEffect(() => {
         if (data['turnover/day']) {
-            console.log("API Response:", data['turnover/day']); // Debugging: Ausgabe der API-Antwort
             const lines = data['turnover/day'].split('\n');
             const [day, value] = lines[0].split(',');
-            console.log("Extracted Day:", day); // Debugging: Ausgabe des extrahierten Tages
-            console.log("Extracted Value:", value); // Debugging: Ausgabe des extrahierten Werts
             setHighlightedDay(day);
             setTurnoverValue(value);
         }

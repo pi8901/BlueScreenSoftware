@@ -44,7 +44,7 @@ const AprioriChart = () => {
         if (active && payload && payload.length) {
             const { x, y } = payload[0].payload;
             return (
-                <div className="custom-tooltip" style={{ backgroundColor: 'var(--logoColor)', padding: '10px', border: '1px solid var(--logoColor)' }}>
+                <div className="custom-tooltip" style={{ backgroundColor: 'white', padding: '10px' }}>
                     <p className="label">{`Premise: ${premises[x]}`}</p>
                     <p className="label">{`Consequence: ${consequences[y]}`}</p>
                 </div>

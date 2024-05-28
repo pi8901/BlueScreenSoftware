@@ -7,7 +7,7 @@ const renderCustomizedLabel = ({
   cx, cy, midAngle, innerRadius, outerRadius, percent, index, attribute
 }) => {
   const RADIAN = Math.PI / 180;
-  const radius = outerRadius + 30; // Position the label 20 units outside the pie
+  const radius = outerRadius + 25; // Position the label 20 units outside the pie
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -56,7 +56,7 @@ const TopFlopChart = () => {
                     nameKey="attribute"
                     cx="50%"
                     cy="50%"
-                    outerRadius={105}
+                    outerRadius={115}
                     fill="var(--logoColor)"
                     label={renderCustomizedLabel}
                     labelLine={true}
