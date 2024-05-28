@@ -1,131 +1,98 @@
 package com.example.demo.service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.File;
-import java.io.IOException;
+import com.example.demo.api.model.strategy;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.api.model.strategy;
-
-/**
- * Service class for handling strategies.
- */
 @Service
 public class strategiesService {
 
-    /** Service for getting file paths. */
-    getFilePath path;
+    getFilePath path = new getFilePath();
+    String CSV_FILE_PATH = path.getStratPath();
 
-    /**
-     * Constructs a new strategiesService instance and initializes the file path and
-     * counter.
-     */
-    public strategiesService() {
-        path = new getFilePath();
-    }
-
-    /**
-     * Gets the last index of strategies.
-     *
-     * @return the last index of strategies
-     */
-    private int getlastIndex() {
-        strategy[] strategies = getStrategies();
-        int lastIndex = 0;
-        for (strategy s : strategies) {
-            if (s.getId() > lastIndex) {
-                lastIndex = s.getId();
-            }
+    // Write a strategy object to the CSV file
+    public void writeStrategy(strategy strat) throws CsvValidationException, NumberFormatException {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(CSV_FILE_PATH, true))) {
+            String[] record = { String.valueOf(findNextLowestId()), strat.getTitle(), strat.getDesc() };
+            writer.writeNext(record);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return lastIndex;
     }
 
-    /**
-     * Retrieves strategies from the CSV file.
-     *
-     * @return an array of strategies
-     */
-    public strategy[] getStrategies() {
-        ArrayList<strategy> strategies = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(path.getStratPath()))) {
-            StringBuilder lineBuilder = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (lineBuilder.length() > 0) {
-                    lineBuilder.append("\n");
+    // Read all strategy objects from the CSV file
+    public List<strategy> readStrategies() throws CsvValidationException, NumberFormatException {
+        List<strategy> strategies = new ArrayList<>();
+        try (CSVReader reader = new CSVReader(new FileReader(CSV_FILE_PATH))) {
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                if (nextLine.length > 0) {
+                    int id = Integer.parseInt(nextLine[0]);
+                    String title = nextLine[1];
+                    String desc = nextLine[2];
+                    strategies.add(new strategy(id, title, desc, ""));
                 }
-                lineBuilder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return strategies;
+    }
 
-                String completeLine = lineBuilder.toString();
-                String[] parts = completeLine.split(";");
-                if (parts.length == 4) { // assuming a valid line has exactly 4 parts
-                    int index = Integer.parseInt(parts[0]);
-                    String tip = parts[1];
-                    String desc = parts[2];
-                    String photo = parts[3];
-                    strategy s = new strategy(index, tip, desc, photo);
-                    strategies.add(s);
-                    lineBuilder.setLength(0); // reset the builder for the next line
+    // Delete a strategy object from the CSV file by ID
+    public void deleteStrategy(int id) throws CsvValidationException, NumberFormatException {
+        File inputFile = new File(CSV_FILE_PATH);
+        File tempFile = new File("strategies_temp.csv");
+
+        try (CSVReader reader = new CSVReader(new FileReader(inputFile));
+             CSVWriter writer = new CSVWriter(new FileWriter(tempFile))) {
+
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                if (Integer.parseInt(nextLine[0]) != id) {
+                    writer.writeNext(nextLine);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return strategies.toArray(new strategy[0]);
-    }
-
-    /**
-     * Writes a strategy to the CSV file.
-     *
-     * @param strategy the strategy to be written
-     */
-    public void writeStrategy(strategy strategy) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.getStratPath(), true))) {
-            writer.write(getlastIndex() + 1 + ";" + strategy.getTitle() + ";" + strategy.getDesc() + ";"
-                    + strategy.getCoverImg());
-            writer.newLine();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Delete original file
+        if (!inputFile.delete()) {
+            System.out.println("Could not delete file");
+            return;
+        }
+        // Rename temp file to original file
+        if (!tempFile.renameTo(inputFile)) {
+            System.out.println("Could not rename file");
         }
     }
 
-    /**
-     * Deletes a strategy from the CSV file by its ID.
-     *
-     * @param id the ID of the strategy to be deleted
-     */
-    public void deleteStrategy(int id) {
-        String tempFilePath = path.getStratPath() + ".tmp";
-        try (BufferedReader reader = new BufferedReader(new FileReader(path.getStratPath()));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFilePath))) {
-
-            String currentLine;
-            while ((currentLine = reader.readLine()) != null) {
-                String[] parts = currentLine.split(";");
-                if (parts.length == 4) {
-                    int currentId = Integer.parseInt(parts[0]);
-                    if (currentId != id) {
-                        writer.write(currentLine);
-                        writer.newLine();
+        // Find the next lowest ID available
+        public int findNextLowestId() throws CsvValidationException, NumberFormatException {
+            int nextId = 1;
+            try (CSVReader reader = new CSVReader(new FileReader(CSV_FILE_PATH))) {
+                String[] nextLine;
+                int maxId = 0;
+                while ((nextLine = reader.readNext()) != null) {
+                    if (nextLine.length > 0) {
+                        int currentId = Integer.parseInt(nextLine[0]);
+                        if (currentId > maxId) {
+                            maxId = currentId;
+                        }
                     }
                 }
+                nextId = maxId + 1;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            reader.close();
-            writer.close();
-            new File(path.getStratPath()).delete();
-            new File(tempFilePath).renameTo(new File(path.getStratPath()));
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            return nextId;
         }
-    }
 }

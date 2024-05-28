@@ -1,5 +1,7 @@
 package com.example.demo.api.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.api.model.strategy;
 import com.example.demo.service.strategiesService;
+import com.opencsv.exceptions.CsvValidationException;
 
 /**
  * Controller for handling requests related to strategies.
@@ -34,10 +37,12 @@ public class strategiesController {
      * Handles GET requests to the /strategies endpoint.
      *
      * @return an array of strategy objects
+     * @throws NumberFormatException 
+     * @throws CsvValidationException 
      */
     @GetMapping("/strategies")
-    public strategy[] getData() {
-        return strategiesService.getStrategies();
+    public List<strategy> getData() throws CsvValidationException, NumberFormatException {
+        return strategiesService.readStrategies();
     }
 
     /**
