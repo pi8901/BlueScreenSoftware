@@ -36,8 +36,7 @@ const Login = ({ setIsLoggedIn }) => {
                 <video src={video} autoPlay muted loop></video>
 
                 <div className="textDiv">
-                    <h2 className="title">Analysiere Daten einfach und schnell</h2>
-                    <p>Hier kann ein Text stehen</p>
+                    <h2 className="title">Analysiere Daten einfach <br />und schnell</h2>
                 </div>
 
                 <div className="footerDiv flex">

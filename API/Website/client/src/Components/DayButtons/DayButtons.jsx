@@ -53,7 +53,7 @@ const DayButtons = () => {
                     </button>
                 ))}
             </div>
-            {turnoverValue && <p className="text-white mt-4">Umsatz: {turnoverValue}</p>}
+            {turnoverValue && <p className="text-white mt-4 text-lg">Umsatz: {turnoverValue}€</p>}
         </div>
     );
 }

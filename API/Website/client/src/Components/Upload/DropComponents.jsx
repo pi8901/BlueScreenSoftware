@@ -62,8 +62,8 @@ const DropFileInput = props => {
                 console.log('Upload erfolgreich:', response);
                 fileRemove(file);
             }).catch(error => {
-                console.error('Upload fehlgeschlagen:', error);
-                setUploadError("Upload fehlgeschlagen: " + error.message);
+                console.error('Das hat nicht geklappt:', error);
+                setUploadError("Das hat nicht geklappt: " + error.message);
             });
         });
 
@@ -77,14 +77,14 @@ const DropFileInput = props => {
         <>
             <div
                 ref={wrapperRef}
-                className="drop-file-input bg-white/90"
+                className="drop-file-input"
                 onDragEnter={onDragEnter}
                 onDragLeave={onDragLeave}
                 onDrop={onDrop}
             >
                 <div className="drop-file-input__label">
-                    <img className='drop-file-img bg-blend-multiply' src={uploadImg} alt="" />
-                    <p className='text-black '>Drag & Drop hier deine Dateien</p>
+                    <img className='drop-file-img' src={uploadImg} alt="" />
+                    <p className='text-black '>Drag & Drop</p>
                 </div>
                 <input type="file" value="" onChange={onFileDrop}/>
             </div>

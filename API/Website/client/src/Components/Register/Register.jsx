@@ -41,12 +41,11 @@ const Register = () => {
                 <video src={video} autoPlay muted loop></video>
 
                 <div className="textDiv">
-                    <h2 className="title">Analysiere Daten einfach und schnell</h2>
-                    <p>Hier kann ein Text stehen</p>
+                    <h2 className="title">Analysiere Daten einfach <br/>und schnell</h2>
                 </div>
 
                 <div className="footerDiv flex">
-                   <span className="text">du hast bereits einen Account?</span> 
+                   <span className="text">Du hast bereits einen Account?</span> 
                    <Link to={'/'}>
                    <button className="btn">Zum Login</button>
                    </Link>
@@ -56,7 +55,6 @@ const Register = () => {
             <div className="formDiv flex">
                 <div className="headerDiv">
                     <img src={logo} alt="Logo" />
-                    <h3>Wir freuen uns auf dich!</h3>
                 </div>
 
                 <form onSubmit={handleRegister} className="form grid">

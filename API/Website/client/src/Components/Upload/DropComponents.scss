@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    // background-color: var(--greyText);
+    background-color: var(--logoColor);
     transition: all 0.5s ease-out;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .drop-file-input:hover::before {
-    content: "Leave for Upload";
+    content: "Zum Hochladen ablegen";
     display: block;
     font-size: 17px;
     font-weight: 500;
@@ -52,8 +52,8 @@
 
 .drop-file-input__label {
     text-align: center;
-    color: var(--primaryColor);
-    font-weight: 600;
+    color: var(--logoColor);
+    font-weight: 700;
     padding: 10px;
     display: flex;
     flex-direction: column; /* In Spalte anordnen */
@@ -85,7 +85,7 @@
 }
 
 .drop-file-preview__title:hover {
-    color: var(--primaryColor);
+    color: var(--logoColor);
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -93,7 +93,7 @@
     position: relative;
     display: flex;
     margin-bottom: 10px;
-    background-color: var(--primaryColor);
+    background-color: var(--logoColor);
     padding: 15px;
     border-radius: 20px;
 }
@@ -110,7 +110,7 @@
 }
 
 .drop-file-preview__item__del {
-    background-color: var(--primaryColor);
+    background-color: var(--logoColor);
     width: 40px;
     height: 40px;
     border-radius: 50%;

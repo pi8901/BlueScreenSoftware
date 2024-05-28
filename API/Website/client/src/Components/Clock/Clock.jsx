@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimeClock } from '@mui/x-date-pickers/TimeClock';
 import { useEffect, useState } from 'react';
 import { useData } from '../DataContext/DataContext';
+import { green } from '@mui/material/colors';
 
 const Clock = () => {
     const { data, loading, error, fetchData } = useData();
@@ -42,18 +43,30 @@ const Clock = () => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['TimeClock']} sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <DemoItem label="" sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <DemoItem label="" sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <TimeClock 
                         value={timeValue} 
                         readOnly
                         sx={{
                             transform: 'scale(0.85)', // Verkleinert die gesamte Uhr
                             transformOrigin: 'center', // Zentriert die Verkleinerung
+                            '& .MuiTimeClock-arrowSwitcher': {
+                                color: '#4caf50', // Ändert die Farbe der Zeiger
+                            },
+                            '& .MuiClockNumber-root': {
+                                color: '#4caf50', // Ändert die Farbe der Zahlen
+                            },
+                            '& .MuiClock-pin': {
+                                backgroundColor: green[500], // Ändert die Farbe des Pins in der Mitte
+                            },
+                            '& .MuiClock-amButton, & .MuiClock-pmButton': {
+                                color: '#4caf50', // Ändert die Farbe der AM/PM Buttons
+                            },
                         }}
                     />
                 </DemoItem>
             </DemoContainer>
-            {strongestHourValue && <p className="text-white mt-4">Umsatz: {strongestHourValue}</p>}
+            {strongestHourValue && <p className="text-white mt-4 text-lg">Umsatz: {strongestHourValue}€</p>}
         </LocalizationProvider>
     );
 }

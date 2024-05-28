@@ -13,14 +13,14 @@ const Cards = () => {
   return (
     <div className='cards bg-[#252525]'>
       
-      <h1 className='card-slogan'>TBD</h1>
+      <h1 className='card-slogan'></h1>
       <div className='cards__container'>
       <div className='circle w-[520px] h-[400px] bg-[#265ffd] rounded-[100%] absolute z-9 top-[110%] left-[50%] translate-x-[-200%] translate-y-[20%] blur-[1000px]'></div>
         <div className='cards__wrapper'>
           <ul className='cards__items'>
             <CardItem
               src={bild}
-              text='Testen Sie wie unsere Software in der Konkurrenz performt'
+              text='Testen Sie wie Ihr Unternehmen mit unserer Software performt'
               label='Aktuelles'
               path='/analyse'
             />
@@ -34,7 +34,7 @@ const Cards = () => {
           <ul className='cards__items'>
             <CardItem
               src={upload}
-              text='Gemütlich Ihre per Drag & Drop .csv Datei zur Analyse hochladen'
+              text='Gemütlich Ihre CSV-Datei per Drag & Drop zur Analyse hochladen'
               label='Easy Upload'
               path='/analyse'
             />

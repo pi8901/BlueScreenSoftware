@@ -57,6 +57,13 @@ const AprioriChart = () => {
         return label.length > 20 ? label.slice(0, 20) + '...' : label;
     };
 
+    const CustomDot = (props) => {
+        const { cx, cy } = props;
+        return (
+            <circle cx={cx} cy={cy} r={6} fill="#22C55E" />
+        );
+    };
+
     return (
         <ResponsiveContainer width="100%" height="100%">
             <ScatterChart margin={{ top: 20, right: 20, bottom: 80, left: 100 }}>
@@ -82,9 +89,9 @@ const AprioriChart = () => {
                     domain={[0, consequences.length - 1]}
                 />
                 <Tooltip
-                    content={<CustomTooltip premises={premises} consequences={consequences} />}
+                    content={<CustomTooltip premises={premises} consequences={consequences} /> } cursor={{ stroke: '#22C55E', strokeDasharray: '0 0' }}
                 />
-                <Scatter name="Apriori Analysis" data={transformedData} fill="#8884d8" />
+                <Scatter name="Apriori Analysis" data={transformedData} fill="#22C55E" shape={<CustomDot />} />
             </ScatterChart>
         </ResponsiveContainer>
     );

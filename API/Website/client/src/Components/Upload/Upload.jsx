@@ -14,8 +14,8 @@ const Upload = () => {
     return (
         <div className="upload-main-container bg-[#252525]">
             <div className="upload-container bg-slate-900/50">
-                <h2 className="upload-header text-white">
-                    Lorem ipsum dolor sit amet
+                <h2 className="upload-header text-white font-medium">
+                    Ziehen Sie Ihre Dateien in das Feld
                 </h2>
                 <DropComponents
                     onFileChange={(files) => onFileChange(files)}
