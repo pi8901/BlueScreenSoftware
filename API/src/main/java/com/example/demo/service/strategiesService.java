@@ -4,30 +4,44 @@ import com.example.demo.api.model.strategy;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
+/**
+ * Service class for managing strategy objects using CSV file operations.
+ */
 @Service
 public class strategiesService {
 
-    getFilePath path = new getFilePath();
-    String CSV_FILE_PATH = path.getStratPath();
+    private final getFilePath path = new getFilePath();
+    private final String CSV_FILE_PATH = path.getStratPath();
 
-    // Write a strategy object to the CSV file
+    /**
+     * Writes a strategy object to the CSV file.
+     *
+     * @param strat the strategy object to be written to the file
+     * @throws CsvValidationException if a CSV validation error occurs
+     * @throws NumberFormatException  if a number format error occurs
+     */
     public void writeStrategy(strategy strat) throws CsvValidationException, NumberFormatException {
         try (CSVWriter writer = new CSVWriter(new FileWriter(CSV_FILE_PATH, true))) {
-            String[] record = { String.valueOf(findNextLowestId()), strat.getTitle(), strat.getDesc() };
+            String[] record = {String.valueOf(findNextLowestId()), strat.getTitle(), strat.getDesc()};
             writer.writeNext(record);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Read all strategy objects from the CSV file
+    /**
+     * Reads all strategy objects from the CSV file.
+     *
+     * @return a list of strategy objects read from the file
+     * @throws CsvValidationException if a CSV validation error occurs
+     * @throws NumberFormatException  if a number format error occurs
+     */
     public List<strategy> readStrategies() throws CsvValidationException, NumberFormatException {
         List<strategy> strategies = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(CSV_FILE_PATH))) {
@@ -46,7 +60,13 @@ public class strategiesService {
         return strategies;
     }
 
-    // Delete a strategy object from the CSV file by ID
+    /**
+     * Deletes a strategy object from the CSV file by ID.
+     *
+     * @param id the ID of the strategy object to be deleted
+     * @throws CsvValidationException if a CSV validation error occurs
+     * @throws NumberFormatException  if a number format error occurs
+     */
     public void deleteStrategy(int id) throws CsvValidationException, NumberFormatException {
         File inputFile = new File(CSV_FILE_PATH);
         File tempFile = new File("strategies_temp.csv");
@@ -75,24 +95,30 @@ public class strategiesService {
         }
     }
 
-        // Find the next lowest ID available
-        public int findNextLowestId() throws CsvValidationException, NumberFormatException {
-            int nextId = 1;
-            try (CSVReader reader = new CSVReader(new FileReader(CSV_FILE_PATH))) {
-                String[] nextLine;
-                int maxId = 0;
-                while ((nextLine = reader.readNext()) != null) {
-                    if (nextLine.length > 0) {
-                        int currentId = Integer.parseInt(nextLine[0]);
-                        if (currentId > maxId) {
-                            maxId = currentId;
-                        }
+    /**
+     * Finds the next lowest ID available for a new strategy object.
+     *
+     * @return the next lowest ID
+     * @throws CsvValidationException if a CSV validation error occurs
+     * @throws NumberFormatException  if a number format error occurs
+     */
+    public int findNextLowestId() throws CsvValidationException, NumberFormatException {
+        int nextId = 1;
+        try (CSVReader reader = new CSVReader(new FileReader(CSV_FILE_PATH))) {
+            String[] nextLine;
+            int maxId = 0;
+            while ((nextLine = reader.readNext()) != null) {
+                if (nextLine.length > 0) {
+                    int currentId = Integer.parseInt(nextLine[0]);
+                    if (currentId > maxId) {
+                        maxId = currentId;
                     }
                 }
-                nextId = maxId + 1;
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-            return nextId;
+            nextId = maxId + 1;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return nextId;
+    }
 }
